@@ -5,6 +5,7 @@ import { auth } from "./config/firebase";
 import Center from "./components/utils/Center";
 import AuthChecker from "./components/auth/AuthChecker";
 import router from "./config/router";
+import { SnackbarProvider } from "notistack";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -29,7 +30,9 @@ function App() {
 
 	return (
 		<div>
-			<RouterProvider router={router} />
+			<SnackbarProvider>
+				<RouterProvider router={router} />
+			</SnackbarProvider>
 		</div>
 	);
 }
