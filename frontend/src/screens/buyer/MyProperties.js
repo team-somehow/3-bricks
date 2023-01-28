@@ -48,14 +48,17 @@ const MyProperties = () => {
     return (
         <Box m={5}>
             <Box
-                sx={{width: "80%",
+                sx={{
+                    width: "80%",
                     textAlign: "center",
                     borderRadius: "8px",
                     paddingY: "2px",
-                    backgroundColor: "white",}}>
+                    backgroundColor: "white",
+                }}
+            >
                 <Typography variant="h2">My Properties</Typography>
             </Box>
-            <Box 
+            <Box
                 width={"76vw"}
                 sx={{
                     display: "grid",
@@ -64,8 +67,9 @@ const MyProperties = () => {
                     // gridGap: "10px",
                     gridTemplateColumns: "1fr 1fr 1fr",
                     // paddingX:"3%",
-                    marginLeft: "-25px"
-                }}>
+                    marginLeft: "-25px",
+                }}
+            >
                 {data.map((item) => (
                     <ListingMyItem {...item} key={item.id} />
                 ))}

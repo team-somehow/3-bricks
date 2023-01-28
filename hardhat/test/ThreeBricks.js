@@ -9,7 +9,8 @@ describe("NFTMinter", function () {
   let seller;
   let tokenId;
   let ipfsTitleDeedURI;
-  let encryptedPropertyId;
+  let propertyPrice;
+  let propertyId;
 
   before(async function () {
     // use ethers to get our contract
@@ -26,7 +27,7 @@ describe("NFTMinter", function () {
     seller = _seller;
 
     ipfsTitleDeedURI = "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG";
-    encryptedPropertyId = "1234";
+    propertyId = "1234";
     propertyPrice = 100;
     downPayment = 10;
   });
@@ -40,7 +41,7 @@ describe("NFTMinter", function () {
     const transaction = await nftMinter.mintNFT(
       seller.address,
       ipfsTitleDeedURI,
-      "property_id_0"
+      propertyId
     );
     const newlyMintedToken = (await transaction.wait()).events[0].args.tokenId;
 
@@ -77,5 +78,11 @@ describe("NFTMinter", function () {
     await nftMinter
       .connect(seller)
       .NFTOwnerStartEscrow(tokenId, buyer2.address);
+  });
+
+  it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {
+    await nftMinter.connect(buyer1).completePaymentAndEsrow(tokenId, {
+      value: ethers.utils.parseEther(propertyPrice.toString()),
+    });
   });
 });
