@@ -6,6 +6,7 @@ import Center from "./components/utils/Center";
 import AuthChecker from "./components/auth/AuthChecker";
 import router from "./config/router";
 import { SnackbarProvider } from "notistack";
+import StyleThemeProvider from "./theme/ThemeProvider";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -29,11 +30,11 @@ function App() {
         );
 
     return (
-        <div>
+        <StyleThemeProvider>
             <SnackbarProvider>
                 <RouterProvider router={router} />
             </SnackbarProvider>
-        </div>
+        </StyleThemeProvider>
     );
 }
 
