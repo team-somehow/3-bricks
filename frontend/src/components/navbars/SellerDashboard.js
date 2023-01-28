@@ -65,20 +65,20 @@ const SellerDashboard = (props) => {
                     <NavLink
                         text={"List New Property"}
                         icon={<HandshakeIcon />}
-                        onClickNavigateTo="/seller/add-property"
-                        isActive={currentRoute == "/seller/add-property"}
+                        onClickNavigateTo="/seller/create"
+                        isActive={currentRoute === "/seller/create"}
                     />
                     <NavLink
                         text={"My Property Listings"}
                         icon={<ApartmentIcon />}
-                        onClickNavigateTo="/seller"
-                        isActive={currentRoute == "/seller"}
+                        onClickNavigateTo="/seller/my"
+                        isActive={currentRoute === "/seller/my"}
                     />
                     <NavLink
                         text={"My Chats"}
                         icon={<ChatIcon />}
-                        onClickNavigateTo="/chats"
-                        isActive={currentRoute == "/chats"}
+                        onClickNavigateTo="/chat"
+                        isActive={currentRoute === "/chat"}
                     />
                     
                 </List>
