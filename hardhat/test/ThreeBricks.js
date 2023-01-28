@@ -28,8 +28,8 @@ describe("ThreeBricks", function () {
 
         ipfsTitleDeedURI = "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG";
         propertyId = "1234";
-        propertyPrice = 100;
-        downPayment = 10;
+        propertyPrice = 1000;
+        downPayment = 100;
     });
 
     it("Admin mints NFT for the seller's approved property", async function () {
@@ -61,28 +61,31 @@ describe("ThreeBricks", function () {
 
     it("Seller creates listing for their approved property", async function () {
         await threeBricks
-            .connect(seller)
-            .createPropertyListing(tokenId, propertyPrice, downPayment);
+        .connect(seller)
+        .createPropertyListing(tokenId, propertyPrice, downPayment);
+        
+        console.log("seller",(await seller.getBalance())/10**18)
     });
 
     it("Buyer1 makes down payment to the smart contract", async () => {
-        console.log(await buyer1.getBalance())
-
+        
+        console.log(await buyer1.getBalance()/10**18)
         await threeBricks
             .connect(buyer1)
             .makeDownPayment(tokenId, buyer1.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
             });
-            console.log(await buyer1.getBalance())
     });
 
     it("Buyer2 makes down payment to the smart contract", async () => {
         
         await threeBricks
-            .connect(buyer2)
-            .makeDownPayment(tokenId, buyer2.address, {
-                value: ethers.utils.parseEther(downPayment.toString()),
-            });
+        .connect(buyer2)
+        .makeDownPayment(tokenId, buyer2.address, {
+            value: ethers.utils.parseEther(downPayment.toString()),
+        });
+        console.log(await buyer1.getBalance()/10**18)
+        console.log(await buyer2.getBalance()/10**18)
         
     });
 
@@ -90,12 +93,13 @@ describe("ThreeBricks", function () {
         await threeBricks
             .connect(seller)
             .NFTOwnerStartEscrow(tokenId, buyer2.address);
-            console.log(await buyer1.getBalance())
+            
     });
 
     it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {
         await threeBricks.connect(buyer1).completePaymentAndEsrow(tokenId, {
             value: ethers.utils.parseEther(propertyPrice.toString()),
         });
+        console.log("seller",await seller.getBalance()/10**18)
     });
 });
