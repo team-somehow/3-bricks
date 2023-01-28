@@ -72,7 +72,6 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
         buyerPayableAddress.transfer(transferAmt);
     }
 
-
     // helper
     function tranfer(address from, address to, uint256 tokenId) public {
         safeTransferFrom(from, to, tokenId);
@@ -95,6 +94,20 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
 
     }
 
+    function completePaymentAndEsrow(uint256 tokenId) public payable {
+        require( msg.value >= propertyPrice[tokenId] - downPayment[tokenId], "please pay correct amount");
+
+        // transfer NFT to seller
+        tranfer(address(this), msg.sender, tokenId);
+    }
+
+    // util override 
+    function safeTransferFrom(address from, address to, uint256 tokenId) override(ERC721) public onlyRealeased(tokenId)  {
+        require(from != address(0), "From address is not valid");
+        require(to != address(0), "To address is not valid");
+        require(_isApprovedOrOwner(from, tokenId), "Transfer not permitted");
+        _transfer(from, to, tokenId);
+    }
 
     // The following functions are overrides required by Solidity.
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
