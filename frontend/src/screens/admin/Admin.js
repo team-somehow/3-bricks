@@ -178,7 +178,7 @@ function Admin() {
                 >
                     <Typography variant="h4"> Ownership Validation</Typography>
                 </Box>
-                
+
                 <Box sx={{ overflowY: "scroll", height: "80vh" }}>
                     {data.map((item, index) => (
                         <RequestListItem {...item} key={item.id} />
@@ -191,4 +191,3 @@ function Admin() {
 }
 
 export default Admin;
-

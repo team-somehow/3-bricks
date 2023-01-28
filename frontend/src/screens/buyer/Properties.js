@@ -12,12 +12,13 @@ const Properties = () => {
     const [tempData, setTempData] = useState([]);
 
     useEffect(() => {
-        let tData = [];
         const getProperties = async () => {
             const snapshot = await getDocs(collection(db, "ListedProperties"));
+            let tData = [];
             snapshot.forEach((doc) => {
                 // console.log(doc.id, " => ", doc.data());
                 let temp = doc.data();
+
                 if (
                     temp.authorize !== false &&
                     temp.authorizeToSell !== false &&
@@ -27,19 +28,10 @@ const Properties = () => {
                 }
             });
             setData(tData);
-            setTempData(tData);
         };
         getProperties();
     }, []);
-    const updateProperties = (e) => {
-        const searchQuery = e.target.value;
 
-        if (searchQuery.trim().length == 0) setData(tempData);
-        else
-            setData(
-                tempData.filter((element) => element.name.includes(searchQuery))
-            );
-    };
     return (
         <Box m={5}>
             <Box
@@ -56,7 +48,6 @@ const Properties = () => {
                     Availabe Properties
                 </Typography>
             </Box>
-            <SearchInput updateProperties={updateProperties} />
             <Box
                 width={"76vw"}
                 sx={{
