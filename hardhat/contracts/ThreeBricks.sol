@@ -18,6 +18,14 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
     mapping(string => uint8) titleDeedURIs; // indicates if title deed exists
     mapping(string => string[]) titleDeedURIsToPropertyUIDs; // stores the property ids of those title deeds
 
+    mapping(uint256 => uint256) public propertyPrice;
+    mapping(uint256 => uint256) public downPayment;
+
+    // to maintain downpayment
+    mapping(uint256 => address[]) public tokenIdToBuyerAddress;
+    mapping(address => uint256) public buyerAddressToDownPayment;
+    mapping(address => address payable) public buyerAddressToBuyerPayableAddress;
+
 
     function mintNFT(address recipient, string memory ipfsTitleDeedURI, string memory propertyId) public onlyOwner returns (uint256) {
         require(!isContentOwned(ipfsTitleDeedURI), "NFT already minted");
@@ -43,6 +51,50 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
 
         return newItemId;
     }
+
+    // NFT owner can create listing
+    function createPropertyListing(uint256 tokenId, uint256 _propertyPrice, uint256 _downPayment) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can create listing");
+        propertyPrice[tokenId] = _propertyPrice;
+        downPayment[tokenId] = _downPayment;
+    }
+    
+    // buyer can make down payment
+    function makeDownPayment(uint256 tokenId, address payable userPayableAddress) public payable {
+        require( msg.value >= downPayment[tokenId], "please deposit correct amount");
+        buyerAddressToDownPayment[msg.sender] += msg.value;
+        buyerAddressToBuyerPayableAddress[msg.sender] = userPayableAddress;
+    }
+
+    function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable onlyOwner {
+        address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
+        uint256 transferAmt = downPayment[tokenId];
+        buyerPayableAddress.transfer(transferAmt);
+    }
+
+
+    // helper
+    function tranfer(address from, address to, uint256 tokenId) public {
+        safeTransferFrom(from, to, tokenId);
+    }
+
+     // start escrow
+    function NFTOwnerStartEscrow(uint256 tokenId, address chosenBuyer) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can start escrow process");
+
+        // Transfer NFT from seller to this contract
+        tranfer(msg.sender, address(this), tokenId);
+
+        // refund all down payments
+        address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
+        for (uint256 i = 0; i < buyerAddresses.length; i++) {
+            if (buyerAddresses[i] != chosenBuyer) {
+                releaseDownPayment(tokenId, address(buyerAddresses[i]));
+            }
+        }
+
+    }
+
 
     // The following functions are overrides required by Solidity.
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
