@@ -22,7 +22,8 @@ const AllChatsOptions = (props) => {
         // console.log(props.allChatter);
         let arr = [];
         const getData = async () => {
-            for (let i = 0; i < userUIDs.length; ++i) {
+            for (let i = 0; i<userUIDs.length; ++i) {
+                console.log(userUIDs[i]);
                 const docRef = doc(db, "UserAuth", userUIDs[i]);
                 const docSnap = await getDoc(docRef);
                 // console.log("Document data:", docSnap.data());

@@ -11,10 +11,22 @@ function AllChats() {
     const [otherPerson, setOtherPerson] = useState([]);
     const [locateme, setLocateMe] = useState();
 
+    const [chatter, setChatter] = useState(null);
+
     useEffect(() => {
         // console.log(auth.currentUser.uid)   
         let tData = [];
         let tDataOther=[];
+
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+        const chatwith = params.get("chatter");
+        console.log(chatwith)
+
+        if (chatwith!=null) {
+            setChatter(chatwith);
+        }
+        // console.log(chatwith);
         const getAllChats = async () => {
             const querySnapshot = await getDocs(collection(db, "messages"));
             querySnapshot.forEach((doc) => {
@@ -33,6 +45,11 @@ function AllChats() {
                     tDataOther.push(doc.sender);
                 }
             })
+
+            console.log(chatwith)
+            if (chatwith && !tDataOther.includes(chatwith)) {
+                tDataOther.push(chatwith);
+            }
             setAllChats(tData);
             setOtherPerson(tDataOther);
             // console.log(tDataOther);
@@ -40,18 +57,6 @@ function AllChats() {
         getAllChats();
         // console.log(allChats);
     }, [])
-
-    const [chatter, setChatter] = useState(null);
-
-    useEffect(() => {
-        let url= new URL(window.location.href);
-        let params = new URLSearchParams(url.search);
-        const chatwith = params.get("chatter");
-        if (chatwith!=null) {
-            setChatter(chatwith);
-        }
-        // console.log(chatwith);
-    }, []);
 
     const updateChat = () => {
     let url= new URL(window.location.href);
