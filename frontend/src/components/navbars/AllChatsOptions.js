@@ -18,6 +18,7 @@ const AllChatsOptions = (props) => {
     const currentRoute = useLocation().pathname;
     useEffect(() => {
         let userUIDs = props.allChatter;
+        let active = props.chatter;
         // console.log(props.allChatter);
         let arr = [];
         const getData = async () => {
@@ -37,13 +38,13 @@ const AllChatsOptions = (props) => {
                         icon={<ChatIcon />}
                         key={doc}
                         onClickNavigateTo={`/chat?chatter=${userUIDs[++i]}`}
-                        isActive={true}
+                        isActive={userUIDs[i]===active}
                     />
                 ))
             );
         };
         getData();
-    }, [props.allChatter]);
+    }, [props.allChatter, props.chatter]);
 
     // console.log(allChatter);
 

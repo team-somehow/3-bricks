@@ -17,6 +17,7 @@ export default function SearchInput({ updateProperties }) {
                 alignItems: "center",
                 width: "100%",
                 my: "24px",
+                width: "95%",
                 background: "#FFFFFF",
                 boxShadow: "0px 20px 70px rgba(86, 138, 146, 0.1)",
                 borderRadius: "6px",
@@ -30,14 +31,6 @@ export default function SearchInput({ updateProperties }) {
             />
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
                 <SearchIcon />
-            </IconButton>
-            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-            <IconButton
-                color="primary"
-                sx={{ p: "10px" }}
-                aria-label="directions"
-            >
-                <TuneIcon />
             </IconButton>
         </Paper>
     );
