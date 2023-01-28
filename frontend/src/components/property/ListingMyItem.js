@@ -70,16 +70,17 @@ const ListingItem = (props) => {
 
     return (
         <Paper
-            elevation={10}
             sx={{
-                padding: 4,
+                padding: 1,
                 my: 3,
-                maxWidth: "23vw",
-                borderRadius: "15px",
-                paddingBottom: "5px",
+                width: "350px",
+                height: "420px",
+                borderRadius: "6px",
                 cursor: "pointer",
                 "&:hover": {
-                    boxShadow: "-2px 6px 20px 5px rgba(0,0,0,0.3)",
+                    // transitionDelay: "2s",
+                    // boxShadow: "-2px 6px 20px 5px rgba(0,0,0,0.3)",
+                    boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
                 },
             }}
             onClick={() => {
@@ -88,100 +89,78 @@ const ListingItem = (props) => {
         >
             <Box
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
+                    width: "100%",
+                    height: "60%",
+                    transition: "all 0.3s ease",
+                    // "&:hover": { transform: "scale(0.98)" },
                 }}
-                my={4}
             >
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box
-                        sx={{
-                            marginTop: "-22px",
-                        }}
-                    >
-                        <img
-                            src={images}
-                            alt={name}
-                            width={"95%"}
-                            height={"185px"}
-                            style={{
-                                borderRadius: "5px",
-                                objectFit: "contain",
-                                alignSelf: "center",
-                                marginLeft: "2.5%",
-                                marginRight: "2.5%",
-                            }}
-                        />
-                    </Box>
-                    <Box
-                        sx={{
-                            marginX: 2,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-around",
-                            textAlign: "left",
-                        }}
-                    >
-                        <Typography
-                            fontSize={"2.5rem"}
-                            // component={Link}
-                            sx={{ marginBottom: "25px" }}
-                        >
-                            {name}
-                        </Typography>
-                        <Typography
-                            variant="h5"
-                            // component={Link}
-                            sx={{ marginBottom: "20px" }}
-                        >
-                            Matic {price}
-                        </Typography>
-                        {
-                            (auth.currentUser.uid !== ownerId,
-                            price,
-                            downPaymentPrice && (
-                                <>
-                                    {maiKhareedSakta && (
-                                        <Button
-                                            variant="outlined"
-                                            startIcon={<DoneAllRoundedIcon />}
-                                            disableRipple={true}
-                                            disableFocusRipple={true}
-                                        >
-                                            Approved
-                                        </Button>
-                                    )}
-                                    {!maiKhareedSakta && !paymentMade && (
-                                        <Button
-                                            variant="outlined"
-                                            startIcon={<AccessTimeIcon />}
-                                            disableRipple={true}
-                                            disableFocusRipple={true}
-                                        >
-                                            Waiting For Approval / Not Approved
-                                        </Button>
-                                    )}
-                                </>
-                            ))
-                        }
-                    </Box>
-                </Box>
-                <Box>
-                    {paymentMade ? (
-                        <Typography>You own this property now</Typography>
-                    ) : (
-                        <>
-                            {maiKhareedSakta && (
-                                <Button
-                                    variant="outlined"
-                                    onClick={makePayment}
-                                >
-                                    Complete payment and own house
-                                </Button>
-                            )}
-                        </>
-                    )}
-                </Box>
+                <img
+                    src={images}
+                    width="100%"
+                    height={"100%"}
+                    style={{ borderRadius: "6px 6px 0 0" }}
+                    alt={name}
+                />
+            </Box>
+            <Typography fontSize={"2.5rem"}>{name}</Typography>
+            <Typography
+                variant="h5"
+                sx={{
+                    marginBottom: "8px",
+                    alignItems: "center",
+                    display: price ? "flex" : "none",
+                }}
+            >
+                <img
+                    src="/assets/matic.png"
+                    style={{ marginRight: "10px" }}
+                    width={"40px"}
+                />
+                {price}
+            </Typography>
+            {
+                (auth.currentUser.uid !== ownerId,
+                price,
+                downPaymentPrice && (
+                    <>
+                        {maiKhareedSakta && (
+                            <Button
+                                variant="outlined"
+                                startIcon={<DoneAllRoundedIcon />}
+                                disableRipple={true}
+                                disableFocusRipple={true}
+                            >
+                                Approved
+                            </Button>
+                        )}
+                        {!maiKhareedSakta && !paymentMade && (
+                            <Button
+                                variant="outlined"
+                                startIcon={<AccessTimeIcon />}
+                                disableRipple={true}
+                                disableFocusRipple={true}
+                                size="large"
+                                fullWidth
+                            >
+                                Waiting For Approval
+                            </Button>
+                        )}
+                    </>
+                ))
+            }
+            <Box>
+                {paymentMade ? (
+                    <Typography>You own this property now</Typography>
+                ) : (
+                    <>
+                        {maiKhareedSakta && (
+                            <Button variant="outlined" onClick={makePayment}>
+                                Complete payment and own house
+                            </Button>
+                        )}
+                    </>
+                )}
             </Box>
         </Paper>
     );

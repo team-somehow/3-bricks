@@ -30,24 +30,26 @@ function SellerPropertyDetails() {
     return (
         <Box m={5}>
             <Box
+                component={Paper}
                 sx={{
-                    width: "70vw",
+                    width: "100%",
                     textAlign: "center",
-                    borderRadius: "8px",
-                    paddingY: "2px",
+                    borderRadius: "0.5vw",
+                    padding: "2%",
                     backgroundColor: "white",
+                    marginBottom: "4.5vh",
+                    height: "10vh",
                 }}
             >
-                <Typography variant="h2">My Property Listings</Typography>
+                <Typography variant="h4">My Property Listings</Typography>
             </Box>
             <Box
                 width={"76vw"}
                 sx={{
-                    display: "grid",
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
                     marginTop: "30px",
-                    gridColumn: "3",
-                    // gridGap: "10px",
-                    gridTemplateColumns: "1fr 1fr 1fr",
                     // paddingX:"3%",
                     marginLeft: "-30px",
                 }}
