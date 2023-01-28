@@ -53,7 +53,7 @@ const SellerDashboard = (props) => {
                     >
                         <ListItem>
                             <ListItemIcon>
-                                <img src="./../logo.png" width={"40px"} />
+                                <img src="/logo.png" width={"40px"} />
                             </ListItemIcon>
                             <ListItemText>
                                 <h2>3 Bricks</h2>
