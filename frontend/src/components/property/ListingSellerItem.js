@@ -95,7 +95,6 @@ const ListingSellerItem = (props) => {
 
     const sell = async (buyerAddress, buyerUid) => {
         setOpen1(true);
-        setStepCount1((prev) => prev + 1);
 
         if (window.ethereum) {
             await window.ethereum.enable();
