@@ -1,95 +1,175 @@
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import { db, auth } from '../config/firebase';
-import { doc, getDoc } from "firebase/firestore";
-// import NavLink from "./NavLink";
-import { useEffect, useState } from "react";
-import ChatIcon from '@mui/icons-material/Chat';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import {
+    Box,
+    Grid,
+    Typography,
+    Paper,
+    TextField,
+    Divider,
+    Button,
+    List,
+    ListItem,
+    ListItemText,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import { auth } from "../config/firebase";
+import { db } from "../config/firebase";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    orderBy,
+    query,
+    serverTimestamp,
+} from "firebase/firestore";
+import { useParams } from "react-router-dom";
 
-const AllChatsOptions = (props) => {
-    const [allChatter, setAllChatter] = useState([]);
-    const [renderList, setRenderList] = useState();
-    const navigate = useNavigate();
-    const currentRoute = useLocation().pathname;
+const Chat = (props) => {
+    const [messages, setMessages] = useState([]);
+    const [message, setMessage] = useState("");
+    // console.log(props);
+    const userId = props.chatter;
+    const scroll = useRef();
+    // console.log("userId is ", userId);
+
     useEffect(() => {
-        let userUIDs = props.allChatter;
-        // console.log(props)
-        let arr = [];  
-        const getData = async () => {
-            for (let i=0; i<userUIDs.length; ++i) {
-                const docRef = doc(db, "UserAuth", userUIDs[i]);
-                const docSnap = await getDoc(docRef);
-                // console.log("Document data:", docSnap.data());
-                arr.push(docSnap.data().name);
-            }
-            let i=-1;
-            setAllChatter(arr);
-            // console.log(arr);
-            // setRenderList(arr.map(doc => 
-            //     <NavLink
-            //     text={doc}
-            //     icon={<ChatIcon />}
-            //     key={doc} 
-                
-            //     onClickNavigateTo={`/chats?chatter=${userUIDs[++i]}`}
-            //     />
-            //     ))
-        }
-        getData();
-    }, [props.allChatter])
+        const q = query(collection(db, "messages"), orderBy("timestamp"));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            let newMessages = [];
+            querySnapshot.forEach((doc) => {
+                let temp = doc.data();
+                // console.log(doc.data());
+                if (
+                    (temp.sender === auth.currentUser.uid &&
+                        temp.receiver === userId) ||
+                    (temp.sender === userId &&
+                        temp.receiver === auth.currentUser.uid)
+                ) {
+                    newMessages.push({ ...temp, id: doc.id });
+                }
+            });
+            setMessages(newMessages);
+        });
+        return () => unsubscribe();
+    }, [userId]);
 
-    // console.log(allChatter);
+    const handleSend = async () => {
+        console.log(userId);
+        await addDoc(collection(db, "messages"), {
+            message: message,
+            sender: auth.currentUser.uid,
+            receiver: userId,
+            timestamp: serverTimestamp(),
+        });
+        setMessage("");
+        scroll.current.scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
-        <Drawer
-            sx={{
-                width: 350,
-                flexShrink: 0,
-                border: "none",
-                "& .MuiDrawer-paper": {
-                    marginLeft: "350px",
-                    marginTop: "4%",
-                    width: 280,
-                    boxSizing: "border-box",
-                    background: "rgba(252, 254, 254, 0.43)",
-                    backdropFilter: "blur(25px)",
-                },
-            }}
-            variant="permanent"
-            anchor="left"
-            classes={{ paper: "awesome-bg-0" }}
+        <Box
+            // sx={{
+            //     display: "flex",
+            //     alignItems: "center",
+            //     textAlign: "center",
+            //     flexDirection: "column",
+            // }}
         >
-            <Box role="presentation" p={2}>
-                <List>
-                    <div
-                        style={{
-                            paddingLeft: "18px",
-                            marginTop: "5px",
-                            marginBottom: "28px",
-                            paddingTop: "20%",
-                            cursor: "pointer",
+
+            <Grid
+                container
+                component={Paper}
+                elevation={12}
+                sx={{
+                    width: "55%",
+                    margin: "5%",
+                    height: "70vh",
+                    position: "absolute",
+                    right: "-2.5%",
+                    top: "10%",
+                    boxShadow: "none",
+                    background: "none"
+                }}
+            >
+                <Grid item xs={12} height="45%">
+                    <List>
+                        {messages.map((item) => (
+                            <ListItem key={item.id}>
+                                <Grid container>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        align={
+                                            auth.currentUser.uid === item.sender
+                                                ? "right"
+                                                : "left"
+                                        }
+                                    >
+                                        <Paper
+                                            elevation={12}
+                                            sx={{
+                                                borderRadius: "28px",
+                                                backgroundColor: `${
+                                                    auth.currentUser.uid ===
+                                                    item.sender
+                                                        ? "#2979ff"
+                                                        : "white"
+                                                }`,
+                                                paddingX: "4%",
+                                                paddingY: "1%",
+                                                width: "fit-content",
+                                                color: `${
+                                                    auth.currentUser.uid ===
+                                                    item.sender
+                                                        ? "white"
+                                                        : "black"
+                                                }`,
+                                            }}
+                                        >
+                                            {item.message}
+                                        </Paper>
+                                    </Grid>
+                                </Grid>
+                            </ListItem>
+                        ))}
+                    </List>
+                    <div ref={scroll} />
+                </Grid>
+                <Divider />
+                <Grid item xs={12} margin="1rem">
+                    <Box
+                        sx={{
                             display: "flex",
-                            alignItems: "center",
+                            position: "absolute",
+                            padding: "20px",
+                            flexDirection: "row",
+                            gap: "2%",
+                            marginTop: "8.5%",
+                            width: "56%",
+                            position: "fixed",
+                            backgroundColor: "#F6F7FF"
                         }}
                     >
-                    </div>
-                    {renderList}
-                </List>
-                <Box
-                    position={"absolute"}
-                    width={"calc(100% - 20px)"}
-                    bottom={"20px"}
-                    margin={"auto"}
-                >
-                </Box>
-            </Box>
-        </Drawer>
+                        <TextField
+                            variant="standard"
+                            fullWidth
+                            value={message}
+                            onChange={(e) => {
+                                setMessage(e.target.value);
+                            }}
+                        ></TextField>
+                        <Button variant="contained" onClick={handleSend} onKeyDown={(e) => {
+                             if (e.key === "Enter") {
+                                console.log("hello enter pressed");
+                                handleSend();
+                            }
+                        }}>
+                            <SendIcon />
+                        </Button>
+                    </Box>
+                </Grid>
+            </Grid>
+        </Box>
     );
 };
 
-export default AllChatsOptions;
+export default Chat;

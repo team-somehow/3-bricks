@@ -24,6 +24,18 @@ function AllChats() {
                 tData.push(doc.data());
             }
             });
+            tData.forEach((doc) => {
+                // console.log(doc.sender)
+                // console.log(doc.sender===auth.currentUser.uid, " ", doc.receiver===auth.currentUser.uid && !tDataOther.includes(doc.sender));
+                if (doc.sender===auth.currentUser.uid && !tDataOther.includes(doc.receiver)) {
+                    tDataOther.push(doc.receiver);
+                } else if (doc.receiver===auth.currentUser.uid && !tDataOther.includes(doc.sender)) {
+                    tDataOther.push(doc.sender);
+                }
+            })
+            setAllChats(tData);
+            setOtherPerson(tDataOther);
+            // console.log(tDataOther);
         }
         getAllChats();
         // console.log(allChats);
