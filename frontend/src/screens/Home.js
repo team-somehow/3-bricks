@@ -38,10 +38,10 @@ const Home = (props) => {
                     </Typography>
                     <Box sx={{ my: 4 }}>
                         <TickMark text={"Minimize Corruption"} />
-                        <TickMark text={"No middle men needed"} />
+                        <TickMark text={"No Middlemen needed"} />
                         <TickMark text={"Transperent Transactions"} />
-                        <TickMark text={"Handle Escrow onchain"} />
-                        <TickMark text={"Seamless transfer"} />
+                        <TickMark text={"Handle Escrow Onchain"} />
+                        <TickMark text={"Seamless Transfer"} />
                     </Box>
                     <Box sx={{ width: "30vw", display: "flex", mt: 2 }}>
                         <Button
@@ -51,11 +51,12 @@ const Home = (props) => {
                             fullWidth
                             sx={{
                                 mr: 3,
-                                p: 2,
+                                p: 1.8,
                                 borderRadius: 3,
                                 background:
                                     "linear-gradient(166.88deg, #54A3FF 9.45%, #348FF9 227.32%)",
                                 boxShadow: "none",
+                                fontSize: "15px",
                             }}
                         >
                             Browse Properties
@@ -67,11 +68,12 @@ const Home = (props) => {
                             fullWidth
                             sx={{
                                 mr: 3,
-                                p: 3,
+                                p: 1.8,
                                 borderRadius: 3,
                                 background:
                                     "linear-gradient(166.88deg, #54A3FF 9.45%, #348FF9 227.32%)",
                                 boxShadow: "none",
+                                fontSize: "15px",
                             }}
                         >
                             List A Property
@@ -100,11 +102,11 @@ const Home = (props) => {
             </Box>
             <Box marginTop={11}>
                 <SpecialPointSection
-                    heading="Industrial applications:"
+                    heading="Industrial Applications"
                     backgroundColor="#eef5f8"
                     pointsList={[
-                        "Streamlined and automated property ownership transfer process using NFTs and smart contracts.",
-                        "Increased transparency and security through the use of the blockchain for property ownership records.",
+                        "Streamlined and automated property ownership transfer process using NFTs and smart contracts",
+                        "Increased transparency and security through the use of the blockchain for property ownership records",
                     ]}
                     imageUrl="https://media2.giphy.com/media/U22HxRRRXQDHrRwxz7/giphy.gif?cid=790b761128ae72216af0c92cd2b5d03ec12e4192a263eb3a&rid=giphy.gif&ct=s"
                     // imageUrl="https://media1.giphy.com/media/4E5RAy2GhY4Lc84IMi/giphy.gif?cid=ecf05e47yw86f3c7su5uqmkrmz29jt4rq985bsroevfip1b9&rid=giphy.gif&ct=s"
@@ -115,9 +117,9 @@ const Home = (props) => {
                 heading="Security Features:"
                 backgroundColor="#fdf9fb"
                 pointsList={[
-                    "Secure storage of property ownership records using the immutability and cryptographic features of the blockchain.",
-                    "Authentication and authorization mechanisms using smart contracts and digital signatures to ensure only authorized parties can transfer property ownership.",
-                    "Use of escrow mechanism in smart contract to ensure that the payment is released only after the successful transfer of property ownership.",
+                    "Secure storage of property ownership records using the immutability and cryptographic features of the blockchain",
+                    "Authentication and authorization mechanisms using smart contracts and digital signatures to ensure only authorized parties can transfer property ownership",
+                    "Use of escrow mechanism in smart contract to ensure that the payment is released only after the successful transfer of property ownership",
                 ]}
                 imageUrl="https://media4.giphy.com/media/IzLOkxWYZJQacKuUFn/giphy.gif?cid=790b7611f105d87d1f829218228d79a482783225ae95def7&rid=giphy.gif&ct=s"
             />

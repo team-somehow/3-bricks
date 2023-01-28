@@ -66,11 +66,14 @@ describe("ThreeBricks", function () {
     });
 
     it("Buyer1 makes down payment to the smart contract", async () => {
+        console.log(await buyer1.getBalance());
+
         await threeBricks
             .connect(buyer1)
             .makeDownPayment(tokenId, buyer1.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
             });
+        console.log(await buyer1.getBalance());
     });
 
     it("Buyer2 makes down payment to the smart contract", async () => {
@@ -85,6 +88,7 @@ describe("ThreeBricks", function () {
         await threeBricks
             .connect(seller)
             .NFTOwnerStartEscrow(tokenId, buyer2.address);
+        console.log(await buyer1.getBalance());
     });
 
     it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {

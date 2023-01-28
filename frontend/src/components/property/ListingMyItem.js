@@ -149,19 +149,18 @@ const ListingItem = (props) => {
                                     disableFocusRipple={true}
                                     size="large"
                                     fullWidth
+                                    disabled={auth.currentUser.uid === ownerId}
                                 >
-                                    Waiting For Approval
+                                    {auth.currentUser.uid !== ownerId
+                                        ? `Waiting For Approval`
+                                        : `You own the property`}
                                 </Button>
                             )}
                         </>
                     ))
                 }
                 <Box>
-                    {paymentMade ? (
-                        <Typography marginLeft={2}>
-                            You own this property now
-                        </Typography>
-                    ) : (
+                    {!paymentMade && auth.currentUser.uid !== ownerId && (
                         <>
                             {maiKhareedSakta && (
                                 <Button
