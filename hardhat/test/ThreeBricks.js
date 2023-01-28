@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("NFTMinter", function () {
-    let nftMinter;
+describe("ThreeBricks", function () {
+    let threeBricks;
     let owner;
     let buyer1;
     let buyer2;
@@ -14,10 +14,10 @@ describe("NFTMinter", function () {
 
     before(async function () {
         // use ethers to get our contract
-        const NFTMinter = await ethers.getContractFactory("NFTMinter");
+        const ThreeBricks = await ethers.getContractFactory("ThreeBricks");
         // and deploy it
-        nftMinter = await NFTMinter.deploy();
-        await nftMinter.deployed();
+        threeBricks = await ThreeBricks.deploy();
+        await threeBricks.deployed();
 
         // get addresses of users
         const [_owner, _buyer1, _buyer2, _seller] = await ethers.getSigners();
@@ -34,11 +34,11 @@ describe("NFTMinter", function () {
 
     it("Admin mints NFT for the seller's approved property", async function () {
         // balanceOf is built in to ERC 721
-        let balance = await nftMinter.balanceOf(seller.address);
+        let balance = await threeBricks.balanceOf(seller.address);
         // since recipient has not purchased any NFT so
         expect(balance).to.equal(0);
 
-        const transaction = await nftMinter.mintNFT(
+        const transaction = await threeBricks.mintNFT(
             seller.address,
             ipfsTitleDeedURI,
             propertyId
@@ -49,22 +49,24 @@ describe("NFTMinter", function () {
         tokenId = newlyMintedToken;
 
         // recheck the balance
-        balance = await nftMinter.balanceOf(seller.address);
+        balance = await threeBricks.balanceOf(seller.address);
         // since recipient has purchased an NFT now so
         expect(balance).to.equal(1);
 
         // check that that particular NFT is minted
-        expect(await nftMinter.isContentOwned(ipfsTitleDeedURI)).to.equal(true);
+        expect(await threeBricks.isContentOwned(ipfsTitleDeedURI)).to.equal(
+            true
+        );
     });
 
     it("Seller creates listing for their approved property", async function () {
-        await nftMinter
+        await threeBricks
             .connect(seller)
             .createPropertyListing(tokenId, propertyPrice, downPayment);
     });
 
     it("Buyer1 makes down payment to the smart contract", async () => {
-        await nftMinter
+        await threeBricks
             .connect(buyer1)
             .makeDownPayment(tokenId, buyer1.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
@@ -72,7 +74,7 @@ describe("NFTMinter", function () {
     });
 
     it("Buyer2 makes down payment to the smart contract", async () => {
-        await nftMinter
+        await threeBricks
             .connect(buyer2)
             .makeDownPayment(tokenId, buyer2.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
@@ -80,13 +82,13 @@ describe("NFTMinter", function () {
     });
 
     it("Buyer2 accepted by seller, Buyer1's down payment refunded, escrow process begins", async () => {
-        await nftMinter
+        await threeBricks
             .connect(seller)
             .NFTOwnerStartEscrow(tokenId, buyer2.address);
     });
 
     it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {
-        await nftMinter.connect(buyer1).completePaymentAndEsrow(tokenId, {
+        await threeBricks.connect(buyer1).completePaymentAndEsrow(tokenId, {
             value: ethers.utils.parseEther(propertyPrice.toString()),
         });
     });

@@ -7,12 +7,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "hardhat/console.sol";
 
-contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
+contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter public _tokenIdCounter;
 
-    constructor() ERC721("NFTMinter", "NFTM") {}
+    constructor() ERC721("ThreeBricks", "TBRS") {}
 
     // to keep track of already minted URIs
     mapping(string => uint8) titleDeedURIs; // indicates if title deed exists
