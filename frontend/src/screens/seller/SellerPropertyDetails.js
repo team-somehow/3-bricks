@@ -33,7 +33,7 @@ function SellerPropertyDetails() {
             <Box
                 component={Paper}
                 sx={{
-                    width: "100%",
+                    width: "80%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
                     padding: "2%",
@@ -51,8 +51,6 @@ function SellerPropertyDetails() {
                     alignItems: "center",
                     flexDirection: "column",
                     marginTop: "30px",
-                    // paddingX:"3%",
-                    marginLeft: "-30px",
                 }}
             >
                 {data.map((item) => (

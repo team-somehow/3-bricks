@@ -201,11 +201,11 @@ const AddProperty = () => {
     };
 
     return (
-        <Box width={"73%"}>
+        <Box width={"80%"}>
             <Box
                 component={Paper}
                 sx={{
-                    width: "73%",
+                    width: "80%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
                     padding: "1.5%",
@@ -215,7 +215,6 @@ const AddProperty = () => {
                     m: 5,
                     position: "fixed",
                     alignItems: "center",
-                    verticalAlign: "center",
                 }}
             >
                 <Typography variant="h4" sx={{}}>

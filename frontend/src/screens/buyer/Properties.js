@@ -45,7 +45,7 @@ const Properties = () => {
             <Box
                 ccomponent={Paper}
                 sx={{
-                    width: "100%",
+                    width: "80%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
                     padding: "1.4%",
@@ -66,7 +66,6 @@ const Properties = () => {
                     // gridGap: "10px",
                     gridTemplateColumns: "1fr 1fr 1fr",
                     // paddingX:"3%",
-                    marginLeft: "-25px",
                 }}
             >
                 {data.map((item) => (
