@@ -13,6 +13,7 @@ import DashboardNavbar from "../components/navbars/DashboardNavbar";
 import SellerDashboard from "../components/navbars/SellerDashboard";
 
 import AuthChecker from "../components/auth/AuthChecker";
+import Chat from "../screens/Chat";
 
 const router = createBrowserRouter([
     {

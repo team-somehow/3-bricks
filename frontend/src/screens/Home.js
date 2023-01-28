@@ -47,7 +47,7 @@ const Home = (props) => {
                         <Button
                             variant="contained"
                             component={Link}
-                            to="/properties"
+                            to="/buyer/browse"
                             fullWidth
                             sx={{
                                 mr: 3,
@@ -63,7 +63,7 @@ const Home = (props) => {
                         <Button
                             variant="contained"
                             component={Link}
-                            to="/seller/add-property"
+                            to="/seller/create"
                             fullWidth
                             sx={{
                                 mr: 3,
