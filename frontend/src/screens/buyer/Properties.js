@@ -48,7 +48,7 @@ const Properties = () => {
                     width: "100%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
-                    padding: "2%",
+                    padding: "1.4%",
                     backgroundColor: "white",
                     marginBottom: "4.5vh",
                     height: "10vh",

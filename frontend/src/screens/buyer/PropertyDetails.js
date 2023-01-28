@@ -140,7 +140,7 @@ const PropertyDetails = () => {
     ) {
         return (
             <Box p={5} display="flex">
-                <Typography variant="h2">
+                <Typography variant="h3">
                     Property listing does not exist OR is already sold
                 </Typography>
             </Box>
