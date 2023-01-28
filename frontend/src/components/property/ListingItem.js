@@ -1,8 +1,8 @@
 import { Button, Typography, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import Matic from "../../assets/matic.png";
-import LocationPin from "../../assets/location.png";
+// import Matic from "../../assets/matic.png";
+// import LocationPin from "../../assets/location.png";
 
 const ListingItem = (props) => {
     const { name, price, images, id, city, propertyType } = props;
@@ -67,7 +67,7 @@ const ListingItem = (props) => {
                         style={{ display: "flex", alignItems: "center" }}
                     >
                         <img
-                            src={LocationPin}
+                            src="../assets/location.png"
                             width={"30px"}
                             style={{ marginRight: "6px" }}
                         />
@@ -84,7 +84,7 @@ const ListingItem = (props) => {
                     style={{ display: "flex", alignItems: "center" }}
                 >
                     <img
-                        src={Matic}
+                        src="../assets/matic.png"
                         width={"40px"}
                         style={{ marginRight: "6px" }}
                     />
