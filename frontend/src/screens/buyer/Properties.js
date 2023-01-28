@@ -53,7 +53,7 @@ const Properties = () => {
                 }}
             >
                 <Typography variant="h2" sx={{ margin: "5px" }}>
-                    Availabe Properties
+                    Browse Properties
                 </Typography>
             </Box>
             <SearchInput updateProperties={updateProperties} />
