@@ -45,7 +45,7 @@ const Properties = () => {
             <Box
                 component={Paper}
                 sx={{
-                    width: "80%",
+                    width: "100%",
                     textAlign: "center",
                     borderRadius: "8px",
                     paddingY: "2px",
