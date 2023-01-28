@@ -2,7 +2,7 @@ import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import ListingItem from "../../components/property/ListingItem";
-import { db } from "../../config/firebase.js";
+import { db, auth } from "../../config/firebase.js";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import SearchInput from "../../components/property/SearchInput";
@@ -18,11 +18,11 @@ const Properties = () => {
             snapshot.forEach((doc) => {
                 // console.log(doc.id, " => ", doc.data());
                 let temp = doc.data();
-
                 if (
                     temp.authorize !== false &&
                     temp.authorizeToSell !== false &&
-                    temp.alreadySold !== true
+                    temp.alreadySold !== true &&
+                    temp.ownerId != auth.currentUser.id
                 ) {
                     tData.push({ ...doc.data(), id: doc.id });
                 }
