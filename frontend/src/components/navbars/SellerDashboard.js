@@ -11,7 +11,7 @@ import Logout from "../auth/Logout";
 
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import ChatIcon from '@mui/icons-material/Chat';
+import ChatIcon from "@mui/icons-material/Chat";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
@@ -80,7 +80,6 @@ const SellerDashboard = (props) => {
                         onClickNavigateTo="/chat"
                         isActive={currentRoute === "/chat"}
                     />
-                    
                 </List>
                 <Box
                     position={"absolute"}
