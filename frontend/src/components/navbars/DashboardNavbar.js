@@ -17,76 +17,76 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const DashboardNavbar = (props) => {
-	const navigate = useNavigate();
-	const currentRoute = useLocation().pathname;
-	return (
-		<Drawer
-			sx={{
-				width: 350,
-				flexShrink: 0,
-				"& .MuiDrawer-paper": {
-					width: 350,
-					boxSizing: "border-box",
-					background: "rgba(252, 254, 254, 0.43)",
-					backdropFilter: "blur(25px)",
-				},
-			}}
-			variant="permanent"
-			anchor="left"
-			classes={{ paper: "awesome-bg-0" }}
-		>
-			<Box role="presentation" p={2}>
-				<List>
-					<div
-						style={{
-							paddingLeft: "18px",
-							marginTop: "12px",
-							marginBottom: "28px",
-							cursor: "pointer",
-							display: "flex",
-							alignItems: "center",
-						}}
-					>
-						<ListItem onClick={() => navigate("/")}>
-							<ListItemIcon>
-								<img src={Logo} width={"40px"} />
-							</ListItemIcon>
-							<ListItemText>
-								<h2>3 Bricks</h2>
-							</ListItemText>
-						</ListItem>
-					</div>
+    const navigate = useNavigate();
+    const currentRoute = useLocation().pathname;
+    return (
+        <Drawer
+            sx={{
+                width: 350,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                    width: 350,
+                    boxSizing: "border-box",
+                    background: "rgba(252, 254, 254, 0.43)",
+                    backdropFilter: "blur(25px)",
+                },
+            }}
+            variant="permanent"
+            anchor="left"
+            classes={{ paper: "awesome-bg-0" }}
+        >
+            <Box role="presentation" p={2}>
+                <List>
+                    <div
+                        style={{
+                            paddingLeft: "18px",
+                            marginTop: "12px",
+                            marginBottom: "28px",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        <ListItem onClick={() => navigate("/")}>
+                            <ListItemIcon>
+                                <img src={Logo} width={"40px"} />
+                            </ListItemIcon>
+                            <ListItemText>
+                                <h2>3 Bricks</h2>
+                            </ListItemText>
+                        </ListItem>
+                    </div>
 
-					<NavLink
-						text={"Browse Properties"}
-						icon={<HandshakeIcon />}
-						onClickNavigateTo="/buyer/browse"
-						isActive={currentRoute === "/buyer/browse"}
-					/>
-					<NavLink
-						text={"My Properties"}
-						icon={<ApartmentIcon />}
-						onClickNavigateTo="/buyer/my"
-						isActive={currentRoute === "/buyer/my"}
-					/>
-					<NavLink
-						text={"My Chats"}
-						icon={<ChatIcon />}
-						onClickNavigateTo="/chat"
-						isActive={currentRoute === "/chat"}
-					/>
-				</List>
-				<Box
-					position={"absolute"}
-					width={"calc(100% - 20px)"}
-					bottom={"20px"}
-					margin={"auto"}
-				>
-					<Logout />
-				</Box>
-			</Box>
-		</Drawer>
-	);
+                    <NavLink
+                        text={"Browse Properties"}
+                        icon={<HandshakeIcon />}
+                        onClickNavigateTo="/buyer/browse"
+                        isActive={currentRoute === "/buyer/browse"}
+                    />
+                    <NavLink
+                        text={"My Properties"}
+                        icon={<ApartmentIcon />}
+                        onClickNavigateTo="/buyer/my"
+                        isActive={currentRoute === "/buyer/my"}
+                    />
+                    <NavLink
+                        text={"My Chats"}
+                        icon={<ChatIcon />}
+                        onClickNavigateTo="/chat"
+                        isActive={currentRoute === "/chat"}
+                    />
+                </List>
+                <Box
+                    position={"absolute"}
+                    width={"calc(100% - 20px)"}
+                    bottom={"20px"}
+                    margin={"auto"}
+                >
+                    <Logout />
+                </Box>
+            </Box>
+        </Drawer>
+    );
 };
 
 export default DashboardNavbar;

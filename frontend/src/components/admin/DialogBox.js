@@ -29,20 +29,6 @@ function BootstrapDialogTitle(props) {
     return (
         <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
             {children}
-            {/* {onClose ? (
-                <IconButton
-                    aria-label="close"
-                    onClick={onClose}
-                    sx={{
-                        position: "absolute",
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-            ) : null} */}
         </DialogTitle>
     );
 }
@@ -52,15 +38,10 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-const steps = [
-    "Uploading Title Deed to IPFS",
-    "Transacting with 3 Bricks smart contract",
-    "Minting NFT",
-    "Success",
-];
-
 export default function CustomizedDialogs(props) {
     // const [open, setOpen] = React.useState(props.open);
+
+    const steps = props.steps;
 
     const handleClose = (_event, reason) => {
         if (reason && reason === "backdropClick") return;
@@ -98,7 +79,7 @@ export default function CustomizedDialogs(props) {
                                     </Step>
                                 ))}
                             </Stepper>
-                            {props.stepCount !== 3 ? (
+                            {props.stepCount !== steps.length - 1 ? (
                                 <Box sx={{ my: 4 }}>
                                     <LinearProgress />
                                 </Box>
@@ -120,7 +101,9 @@ export default function CustomizedDialogs(props) {
                 <DialogActions>
                     <Button
                         autoFocus
-                        disabled={props.stepCount !== 3 || props.error}
+                        disabled={
+                            props.stepCount !== steps.length - 1 || props.error
+                        }
                         onClick={handleClose}
                         fullWidth
                     >

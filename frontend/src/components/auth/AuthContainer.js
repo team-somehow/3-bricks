@@ -7,40 +7,40 @@ import GoogleIcon from "@mui/icons-material/Google";
 import Center from "../utils/Center";
 
 const AuthContainer = (props) => {
-  const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [disabled, setDisabled] = useState(false);
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
+    const [disabled, setDisabled] = useState(false);
 
-  const signInWithGoogle = () => {
-    setDisabled(true);
-    signInWithPopup(auth, Providers.google)
-      .then(() => {
-        setDisabled(false);
-        console.info("TODO: navigate to authenticated screen");
-        navigate("/");
-      })
-      .catch((error) => {
-        setErrorMessage(error.code + ": " + error.message);
-        setDisabled(false);
-      });
-  };
+    const signInWithGoogle = () => {
+        setDisabled(true);
+        signInWithPopup(auth, Providers.google)
+            .then(() => {
+                setDisabled(false);
+                console.info("TODO: navigate to authenticated screen");
+                navigate("/");
+            })
+            .catch((error) => {
+                setErrorMessage(error.code + ": " + error.message);
+                setDisabled(false);
+            });
+    };
 
-  return (
-    <Center height={"auto"}>
-      <Button
-        startIcon={<GoogleIcon />}
-        size="large"
-        disabled={disabled}
-        variant="contained"
-        onClick={signInWithGoogle}
-      >
-        Sign In With Google
-      </Button>
-      <Typography sx={{ mt: 2 }} color={"red"}>
-        {errorMessage}
-      </Typography>
-    </Center>
-  );
+    return (
+        <Center height={"auto"}>
+            <Button
+                startIcon={<GoogleIcon />}
+                size="large"
+                disabled={disabled}
+                variant="contained"
+                onClick={signInWithGoogle}
+            >
+                Sign In With Google
+            </Button>
+            <Typography sx={{ mt: 2 }} color={"red"}>
+                {errorMessage}
+            </Typography>
+        </Center>
+    );
 };
 
 export default AuthContainer;

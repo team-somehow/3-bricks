@@ -1,15 +1,14 @@
 import React from "react";
 import { auth } from "../../config/firebase";
-import { Box, Typography,Paper } from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
 import ListingMyItem from "../../components/property/ListingMyItem";
 import { db } from "../../config/firebase.js";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 const MyProperties = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
-        console.log(auth.currentUser.uid)
+        console.log(auth.currentUser.uid);
         const getProperties = async () => {
             const snapshot = await getDocs(collection(db, "ListedProperties"));
             let tData = [];
