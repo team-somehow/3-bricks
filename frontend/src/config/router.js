@@ -23,7 +23,9 @@ const router = createBrowserRouter([
 		element: (
 			<Box sx={{ display: "flex" }}>
 				<DashboardNavbar />
-				<Outlet />
+				<Box>
+					<Outlet />
+				</Box>
 			</Box>
 		),
 		children: [
