@@ -38,10 +38,10 @@ const Home = (props) => {
                     </Typography>
                     <Box sx={{ my: 4 }}>
                         <TickMark text={"Minimize Corruption"} />
-                        <TickMark text={"No middle men needed"} />
+                        <TickMark text={"No Middlemen needed"} />
                         <TickMark text={"Transperent Transactions"} />
-                        <TickMark text={"Handle Escrow onchain"} />
-                        <TickMark text={"Seamless transfer"} />
+                        <TickMark text={"Handle Escrow Onchain"} />
+                        <TickMark text={"Seamless Transfer"} />
                     </Box>
                     <Box sx={{ width: "30vw", display: "flex", mt: 2 }}>
                         <Button
@@ -51,7 +51,7 @@ const Home = (props) => {
                             fullWidth
                             sx={{
                                 mr: 3,
-                                p: 2,
+                                p: 1.8,
                                 borderRadius: 3,
                                 background:
                                     "linear-gradient(166.88deg, #54A3FF 9.45%, #348FF9 227.32%)",
@@ -68,7 +68,7 @@ const Home = (props) => {
                             fullWidth
                             sx={{
                                 mr: 3,
-                                p: 3,
+                                p: 1.8,
                                 borderRadius: 3,
                                 background:
                                     "linear-gradient(166.88deg, #54A3FF 9.45%, #348FF9 227.32%)",
