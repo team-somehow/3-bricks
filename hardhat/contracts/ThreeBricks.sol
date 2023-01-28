@@ -25,6 +25,9 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     mapping(uint256 => address[]) public tokenIdToBuyerAddress;
     mapping(address => uint256) public buyerAddressToDownPayment;
     mapping(address => address payable) public buyerAddressToBuyerPayableAddress;
+    
+    // to maintain seller address
+    mapping(uint256 => address payable) public tokenIdToSellerPayableAddress;
 
 
     function mintNFT(address recipient, string memory ipfsTitleDeedURI, string memory propertyId) public onlyOwner returns (uint256) {
@@ -57,6 +60,11 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can create listing");
         propertyPrice[tokenId] = _propertyPrice;
         downPayment[tokenId] = _downPayment;
+
+        address addr = msg.sender;
+        address payable wallet = payable(addr);
+
+        tokenIdToSellerPayableAddress[tokenId] = wallet;
     }
     
     // buyer can make down payment
@@ -99,6 +107,10 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
 
         // transfer NFT to seller
         tranfer(address(this), msg.sender, tokenId);
+
+        address payable sellerPayableAddress = tokenIdToSellerPayableAddress[tokenId];
+        uint256 transferAmt = propertyPrice[tokenId];
+        sellerPayableAddress.transfer(transferAmt);
     }
 
     // util override 
