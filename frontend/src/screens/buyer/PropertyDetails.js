@@ -8,7 +8,7 @@ import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import BedTwoToneIcon from "@mui/icons-material/BedTwoTone";
 
 import { providers, Contract, utils } from "ethers";
-import { contractAddress } from "../constants";
+import { contractAddress } from "../../constants";
 import NFTMinter from "../../artifacts/contracts/NFTMinter.sol/NFTMinter.json";
 import {
     arrayUnion,

@@ -152,7 +152,7 @@ function Navbar() {
 							}}
 						>
 							{pages.map((page, i) => (
-								<Link to={page.linkTo} key={page.linkTo + i}>
+								<Link to={page.linkTo || "/"} key={page.linkTo + i}>
 									<MenuItem key={page.text} onClick={handleCloseNavMenu}>
 										<Typography textAlign="center" color={"black"}>
 											{page.text}
@@ -201,7 +201,7 @@ function Navbar() {
 						}}
 					>
 						{pages.map((page, i) => (
-							<Link to={page.linkTo} key={page.linkTo + i}>
+							<Link to={page.linkTo || "/"} key={page.linkTo + i}>
 								<Button
 									key={page.text}
 									onClick={handleCloseNavMenu}

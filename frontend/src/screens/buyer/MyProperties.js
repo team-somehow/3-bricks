@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 const MyProperties = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
+        console.log(auth.currentUser.uid)
         const getProperties = async () => {
             const snapshot = await getDocs(collection(db, "ListedProperties"));
             let tData = [];
