@@ -39,9 +39,14 @@ const router = createBrowserRouter([
                 element: <PropertyDetails />,
                 exact: true,
             },
+
             {
                 path: "/buyer/my",
-                element: <MyProperties />,
+                element: (
+                    <AuthChecker>
+                        <MyProperties />
+                    </AuthChecker>
+                ),
                 exact: true,
             },
         ],
@@ -67,11 +72,25 @@ const router = createBrowserRouter([
     },
     {
         path: "/chat",
-        element: <Chat />,
+        element: (
+            <AuthChecker>
+                <Chat />
+            </AuthChecker>
+        ),
     },
     {
         path: "/admin",
-        element: <Admin />,
+		exact:true,
+        element: (
+            <AuthChecker>
+                <Admin />
+            </AuthChecker>
+        ),
+    },
+    {
+        path: "/login",
+		exact:true,
+        element: <Login />,
     },
 ]);
 
