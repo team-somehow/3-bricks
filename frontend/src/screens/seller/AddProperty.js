@@ -181,47 +181,8 @@ const AddProperty = () => {
 
     return (
         <Box p={5} display="flex">
-            <Box width="30%">
-                <Grid container spacing={3}>
-                    {/* {image.map((file, index) => (
-                        <Grid item xs={6} sm={4} key={index}>
-                            <Card>
-                                <CardMedia
-                                    component="img"
-                                    alt={file.name}
-                                    image={URL.createObjectURL(file)}
-                                    title={file.name}
-                                />
-                            </Card>
-                        </Grid>
-                    ))} */}
-                    <img
-                        src={
-                            image
-                                ? URL.createObjectURL(image[0])
-                                : "https://picsum.photos/600/400"
-                        }
-                        width={"100%"}
-                        alt="Property Images"
-                    />
-                </Grid>
-                <input
-                    onChange={(e) => setImage(e.target.files)}
-                    ref={imageUploadRef}
-                    type="file"
-                    style={{ display: "none" }}
-                />
-                <Button
-                    variant="outlined"
-                    size="large"
-                    sx={{ marginY: 2 }}
-                    onClick={() => imageUploadRef.current.click()}
-                >
-                    Click to add Images
-                </Button>
-            </Box>
-            <Box mx={10}>
-                <Typography variant="h1" mt={4} mb={12}>
+            <Box mr={10}>
+                <Typography variant="h2" mt={4} mb={12}>
                     Add a property
                 </Typography>
                 <Box display={errorMessage ? "block" : "none"}>
@@ -420,6 +381,33 @@ const AddProperty = () => {
                         Submit Data
                     </Button>
                 </Box>
+            </Box>
+            <Box width="30%" mt={10}>
+                <Grid container spacing={3}>
+                    <img
+                        src={
+                            image
+                                ? URL.createObjectURL(image[0])
+                                : "https://picsum.photos/600/400"
+                        }
+                        width={"100%"}
+                        alt="Property Images"
+                    />
+                </Grid>
+                <input
+                    onChange={(e) => setImage(e.target.files)}
+                    ref={imageUploadRef}
+                    type="file"
+                    style={{ display: "none" }}
+                />
+                <Button
+                    variant="outlined"
+                    size="large"
+                    sx={{ marginY: 2 }}
+                    onClick={() => imageUploadRef.current.click()}
+                >
+                    Click to add Images
+                </Button>
             </Box>
         </Box>
     );
