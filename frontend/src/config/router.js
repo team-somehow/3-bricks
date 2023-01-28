@@ -8,6 +8,7 @@ import AddProperty from "../screens/seller/AddProperty";
 import SellerPropertyDetails from "../screens/seller/SellerPropertyDetails";
 import Chat from "../screens/Chat";
 import Admin from "../screens/admin/Admin";
+import DashboardNavbar from "../components/navbars/DashboardNavbar";
 
 const router = createBrowserRouter([
 	{
@@ -20,8 +21,11 @@ const router = createBrowserRouter([
 	{
 		path: "/buyer",
 		element: (
-			<Box>
-				<Outlet />
+			<Box sx={{ display: "flex" }}>
+				<DashboardNavbar />
+				<Box>
+					<Outlet />
+				</Box>
 			</Box>
 		),
 		children: [
