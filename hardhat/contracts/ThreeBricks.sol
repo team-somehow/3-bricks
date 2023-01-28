@@ -61,6 +61,11 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         propertyPrice[tokenId] = _propertyPrice;
         downPayment[tokenId] = _downPayment;
 
+        console.log("propertyPrice[tokenId]");
+        console.log(propertyPrice[tokenId]);
+        console.log("downPayment[tokenId]");
+        console.log(downPayment[tokenId]);
+
         address addr = msg.sender;
         address payable wallet = payable(addr);
 
@@ -72,11 +77,30 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         require( msg.value >= downPayment[tokenId], "please deposit correct amount");
         buyerAddressToDownPayment[msg.sender] += msg.value;
         buyerAddressToBuyerPayableAddress[msg.sender] = userPayableAddress;
+
+        // Retrieve the current array of buyers for the given token ID
+        address[] storage currentBuyers = tokenIdToBuyerAddress[tokenId];
+        // Append the new buyer to the array
+        currentBuyers.push(userPayableAddress);
+        // Update the mapping with the new array of buyers
+        tokenIdToBuyerAddress[tokenId] = currentBuyers;
+
+        console.log("buyerAddressToDownPayment[msg.sender]");
+        console.log(buyerAddressToDownPayment[msg.sender]);
+        console.log("buyerAddressToBuyerPayableAddress[msg.sender]");
+        console.log(buyerAddressToBuyerPayableAddress[msg.sender]);
     }
 
-    function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable onlyOwner {
+    function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable  {
         address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
         uint256 transferAmt = downPayment[tokenId];
+
+        console.log("buyerPayableAddress");
+        console.log(buyerPayableAddress);
+        console.log("transferAmt");
+        console.log(transferAmt);
+
+
         buyerPayableAddress.transfer(transferAmt);
     }
 
@@ -95,6 +119,7 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         // refund all down payments
         address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
         for (uint256 i = 0; i < buyerAddresses.length; i++) {
+            console.log("for loop");
             if (buyerAddresses[i] != chosenBuyer) {
                 releaseDownPayment(tokenId, address(buyerAddresses[i]));
             }
