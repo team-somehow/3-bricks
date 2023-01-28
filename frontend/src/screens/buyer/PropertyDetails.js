@@ -1,4 +1,4 @@
-import { Button, Typography, Paper, Grid } from "@mui/material";
+import { Button, Typography, Paper, Grid, Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -38,6 +38,9 @@ const PropertyDetails = () => {
     } = data;
 
     const { enqueueSnackbar } = useSnackbar();
+    let seller_long = "72.88800325961361",
+        seller_lat = "19.068371276850556";
+    let map_image = `https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+555555(${seller_long},${seller_lat})/${seller_long},${seller_lat},15,0/300x200@2x?access_token=pk.eyJ1IjoibWJtcGgiLCJhIjoiY2tya2F0OTJvMGk1YjJwbGZ1bDJ1eGU0dCJ9.fLJp01SsIpdhGmWdBzaSnQ`;
 
     const [allowRequestPurchase, setAllowRequestPurchase] = useState(false);
     const [walletAddress, setWalletAddress] = useState(null);
@@ -143,12 +146,52 @@ const PropertyDetails = () => {
     }
 
     return (
-        <Box p={5} display="flex">
+        <Box
+            p={5}
+            display="flex"
+            flexDirection={"row-reverse"}
+            justifyContent="space-between"
+            width={"80vw"}
+        >
             {loading && <Typography variant="h2">Loading...</Typography>}
             {!loading && (
                 <>
-                    <Box>
-                        <img width={350} src={images[0]} alt={name} />
+                    <Box width={"30%"}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                gap: "10vh",
+                            }}
+                        >
+                            <Box>
+                                <img
+                                    width={"300px"}
+                                    height={"200px"}
+                                    style={{
+                                        objectFit: "contain",
+                                    }}
+                                    src={images[0]}
+                                    alt={name}
+                                />
+                            </Box>
+                            <Box
+                                component={Paper}
+                                sx={{
+                                    padding: "4%",
+                                    borderRadius: "0.5vw",
+                                }}
+                            >
+                                <img
+                                    width={"300px"}
+                                    height={"200px"}
+                                    src={map_image}
+                                    alt="map"
+                                />
+                            </Box>
+                        </Box>
                     </Box>
                     <Box mx={10}>
                         <Typography variant="h1" my={4}>
@@ -156,54 +199,68 @@ const PropertyDetails = () => {
                         </Typography>
 
                         <Typography variant="h4" my={4}>
-                            Rs.{price}
+                            Matic.{price}
                         </Typography>
                         <Box>
-                            {allowRequestPurchase && (
-                                <Button
-                                    variant="contained"
-                                    onClick={makeDeposit}
-                                    disabled={loading}
-                                >
-                                    Request Purchase
-                                </Button>
+                            {ownerId === auth.currentUser.uid && (
+                                <Typography>
+                                    You already own this property
+                                </Typography>
                             )}
+
+                            {ownerId !== auth.currentUser.uid &&
+                                allowRequestPurchase && (
+                                    <Button
+                                        variant="contained"
+                                        onClick={makeDeposit}
+                                        disabled={loading}
+                                        sx={{ marginX: 4 }}
+                                    >
+                                        Request Purchase
+                                    </Button>
+                                )}
 
                             <Button
                                 variant="outlined"
                                 component={Link}
                                 to={`/chat/${ownerId}`}
-                                sx={{ marginX: 4 }}
                             >
                                 Chat with Owner
                             </Button>
                         </Box>
-                        <Typography variant="body1" my={4}>
-                            <LocationOnIcon />
+                        <Typography
+                            variant="h6"
+                            sx={{ marginY: "26px" }}
+                            style={{ display: "flex", alignItems: "center" }}
+                        >
+                            <img
+                                src="/assets/location.png"
+                                width={"30px"}
+                                style={{ marginRight: "15px" }}
+                            />
                             {city}
                         </Typography>
-                        <Typography variant="body1" my={4}>
+                        <Typography variant="h6" my={4}>
                             <strong>Address:</strong> {address}
                         </Typography>
 
-                        <Typography variant="h4">Amenities</Typography>
+                        <Typography variant="h4" mb={3}>
+                            Amenities
+                        </Typography>
                         <Grid container>
-                            {amenities.map((item) => (
-                                <Grid item xs={6}>
-                                    <Paper
-                                        sx={{
-                                            padding: 2,
-                                            marginX: 3,
-                                            marginY: 1,
-                                        }}
-                                    >
-                                        <Typography
-                                            sx={{ width: "fit-content" }}
-                                        >
-                                            {item}
-                                        </Typography>
-                                    </Paper>
-                                </Grid>
+                            {amenities.map((item, index) => (
+                                <Paper
+                                    sx={{
+                                        marginX: 1,
+                                        paddingY: "0.65vw",
+                                        paddingX: "0.90vw",
+                                        height: "5vh",
+                                        borderRadius: "2.5vh",
+                                    }}
+                                    key={index}
+                                >
+                                    {item}
+                                </Paper>
                             ))}
                         </Grid>
                     </Box>
