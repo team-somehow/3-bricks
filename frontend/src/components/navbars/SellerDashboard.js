@@ -62,7 +62,7 @@ const SellerDashboard = (props) => {
                     </div>
 
                     <NavLink
-                        text={"List New Property"}
+                        text={"List A Property"}
                         icon={<HandshakeIcon />}
                         onClickNavigateTo="/seller/create"
                         isActive={currentRoute === "/seller/create"}
