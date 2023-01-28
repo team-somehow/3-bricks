@@ -1,6 +1,7 @@
 import { Box } from "@mui/system";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Home from "../screens/Home";
+import Login from '../screens/Login'
 import Properties from "../screens/buyer/Properties";
 import MyProperties from "../screens/buyer/MyProperties";
 import PropertyDetails from "../screens/buyer/PropertyDetails";
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
 		path: "/admin",
 		element: <Admin />,
 	},
+	{
+		path:"/login",
+		element:<Login/>
+	}
 ]);
 
 export default router;

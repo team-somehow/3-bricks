@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography,Paper } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import ListingSellerItem from "../../components/property/ListingSellerItem";
@@ -31,6 +31,7 @@ function SellerPropertyDetails() {
     return (
         <Box m={5}>
             <Box 
+            component={Paper}
             sx={{
                     width: "70vw",
                     textAlign: "center",

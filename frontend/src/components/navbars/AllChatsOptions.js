@@ -36,12 +36,12 @@ const AllChatsOptions = (props) => {
     const navigate = useNavigate();
     const currentRoute = useLocation().pathname;
     // console.log(allChatter);
-    const renderList = allChatter.map(doc => 
-                             <NavLink
-                             text={doc}
-                             icon={<ChatIcon />}
-                             key={doc} />
-                             );
+    // const renderList = allChatter.map(doc => 
+    //                          <NavLink
+    //                          text={doc}
+    //                          icon={<ChatIcon />}
+    //                          key={doc} />
+    //                          );
 
     return (
         <Drawer
