@@ -29,11 +29,11 @@ function SellerPropertyDetails() {
     }, []);
 
     return (
-        <Box m={5}>
+        <Box m={5} width={"100%"}>
             <Box
                 component={Paper}
                 sx={{
-                    width: "100%",
+                    width: "80%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
                     padding: "2%",
@@ -45,14 +45,14 @@ function SellerPropertyDetails() {
                 <Typography variant="h4">My Property Listings</Typography>
             </Box>
             <Box
-                width={"76vw"}
+                width={"100%"}
                 sx={{
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
                     marginTop: "30px",
                     // paddingX:"3%",
-                    marginLeft: "-30px",
+                    // marginLeft: "-30px",
                 }}
             >
                 {data.map((item) => (
