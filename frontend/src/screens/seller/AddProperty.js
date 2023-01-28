@@ -48,6 +48,7 @@ const AddProperty = () => {
     const [propertyID, setPropertyID] = useState();
     const [price, setPrice] = useState(0);
     const [connected, setConnected] = useState(false);
+    const [walletConnected, setWalletConnected] = useState(false);
     const [walletAddress, setWalletAddress] = useState("");
     const imageUploadRef = useRef();
     const titleDeedRef = useRef();
@@ -162,7 +163,7 @@ const AddProperty = () => {
             //     })
             //     .catch((err) => console.log(err));
             setLoading(false);
-            navigate("/seller");
+            navigate("/seller/my");
         } catch (err) {
             console.error(err);
             alert("An error occured!!");
@@ -173,7 +174,8 @@ const AddProperty = () => {
         window.ethereum
             .request({ method: "eth_requestAccounts" })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
+                setWalletConnected(true);
                 setConnected(true);
                 setWalletAddress(res[0]);
             });
@@ -376,7 +378,7 @@ const AddProperty = () => {
                     <Button
                         variant="contained"
                         onClick={upload}
-                        disabled={loading}
+                        disabled={loading || !walletConnected}
                     >
                         Submit Data
                     </Button>

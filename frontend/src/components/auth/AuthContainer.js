@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, Providers } from "../../config/firebase";
+import { auth, Providers, db } from "../../config/firebase";
 import { Button, Typography } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import Center from "../utils/Center";
+import { setDoc, doc } from "firebase/firestore";
 
 const AuthContainer = (props) => {
     const navigate = useNavigate();
@@ -14,9 +15,12 @@ const AuthContainer = (props) => {
     const signInWithGoogle = () => {
         setDisabled(true);
         signInWithPopup(auth, Providers.google)
-            .then(() => {
+            .then(async (result) => {
                 setDisabled(false);
-                console.info("TODO: navigate to authenticated screen");
+                // console.info("TODO: navigate to authenticated screen");
+                console.log(result.user.email);
+                console.log(result.user.displayName);
+                await setDoc(doc(db, "UserAuth", result.user.uid), {email: result.user.email, name: result.user.displayName, uid: result.user.uid});
                 navigate("/");
             })
             .catch((error) => {

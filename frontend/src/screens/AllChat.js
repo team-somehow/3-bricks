@@ -20,7 +20,7 @@ function AllChats() {
             querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            if (doc.data().sender===auth.currentUser.uid || doc.data().receiver===auth.currentUser.uid) {
+            if ((doc.data().sender===auth.currentUser.uid || doc.data().receiver===auth.currentUser.uid) && !(doc.data().sender===auth.currentUser.uid && doc.data().receiver===auth.currentUser.uid)) {
                 tData.push(doc.data());
             }
             });
@@ -67,7 +67,7 @@ function AllChats() {
     <>
         <Navbar />
         <DashboardNavbar />
-        <div style={{marginTop: "500px", opacity: 0.95, backgroundColor: "yellow"}} onClick={updateChat}><AllChatsOptions allChatter={otherPerson}/></div>
+        <div style={{marginTop: "500px", opacity: 0.95}} onClick={updateChat}><AllChatsOptions allChatter={otherPerson}/></div>
         <div>{chatter!=null && <Chat location={locateme} chatter={chatter}/>}</div>
     </>
   )

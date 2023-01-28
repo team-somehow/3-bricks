@@ -18,7 +18,7 @@ const AllChatsOptions = (props) => {
     const currentRoute = useLocation().pathname;
     useEffect(() => {
         let userUIDs = props.allChatter;
-        // console.log(props)
+        // console.log(props.allChatter);
         let arr = [];
         const getData = async () => {
             for (let i = 0; i < userUIDs.length; ++i) {
@@ -36,7 +36,7 @@ const AllChatsOptions = (props) => {
                         text={doc}
                         icon={<ChatIcon />}
                         key={doc}
-                        onClickNavigateTo={`/chats?chatter=${userUIDs[++i]}`}
+                        onClickNavigateTo={`/chat?chatter=${userUIDs[++i]}`}
                     />
                 ))
             );

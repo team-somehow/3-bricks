@@ -72,7 +72,7 @@ function Navbar() {
                 });
         }
         if (setting === "My Chats") {
-            navigate("/chats");
+            navigate("/chat");
         }
         setAnchorElUser(null);
     };
