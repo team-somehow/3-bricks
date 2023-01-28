@@ -143,12 +143,13 @@ const PropertyDetails = () => {
     }
 
     return (
-        <Box p={5} display="flex">
+        <Box p={5} display="flex" flexDirection={"row-reverse"} justifyContent="space-between" width={"80vw"}>
             {loading && <Typography variant="h2">Loading...</Typography>}
             {!loading && (
                 <>
                     <Box>
                         <img width={350} src={images[0]} alt={name} />
+                        
                     </Box>
                     <Box mx={10}>
                         <Typography variant="h1" my={4}>
@@ -156,7 +157,7 @@ const PropertyDetails = () => {
                         </Typography>
 
                         <Typography variant="h4" my={4}>
-                            Rs.{price}
+                            Matic.{price}
                         </Typography>
                         <Box>
                             {allowRequestPurchase && (
@@ -178,11 +179,19 @@ const PropertyDetails = () => {
                                 Chat with Owner
                             </Button>
                         </Box>
-                        <Typography variant="body1" my={4}>
-                            <LocationOnIcon />
+                        <Typography
+                            variant="h6"
+                            sx={{ marginY: "26px" }}
+                            style={{ display: "flex", alignItems: "center" }}
+                        >
+                            <img
+                                src="/assets/location.png"
+                                width={"30px"}
+                                style={{ marginRight: "15px" }}
+                            />
                             {city}
                         </Typography>
-                        <Typography variant="body1" my={4}>
+                        <Typography variant="h6" my={4}>
                             <strong>Address:</strong> {address}
                         </Typography>
 
