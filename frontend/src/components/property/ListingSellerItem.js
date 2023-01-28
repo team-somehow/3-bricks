@@ -1,4 +1,12 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Divider,
+    Grid,
+    Paper,
+    TextField,
+    Typography,
+} from "@mui/material";
 import { Contract, ethers, providers } from "ethers";
 import BigNumber from "bignumber.js";
 import React, { useEffect, useRef, useState } from "react";
@@ -120,19 +128,20 @@ const ListingSellerItem = (props) => {
 
     return (
         <Paper
-            elevation={12}
-            m={5}
             sx={{
-                padding: 4,
+                padding: 1,
                 my: 3,
-                maxWidth: "23vw",
-                paddingBottom: "20px",
-                borderRadius: "15px",
-                // cursor: "pointer",
+                width: "100%",
+                height: "420px",
+                borderRadius: "6px",
+                cursor: "pointer",
                 "&:hover": {
                     // transitionDelay: "2s",
                     // boxShadow: "-2px 6px 20px 5px rgba(0,0,0,0.3)",
+                    boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
                 },
+                display: "flex",
+                alignItems: "center",
             }}
             onClick={() => {
                 // navigate(`/property/${id}`);
@@ -140,113 +149,119 @@ const ListingSellerItem = (props) => {
         >
             <Box
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
+                    width: "40%",
+                    height: "100%",
+                    transition: "all 0.3s ease",
                 }}
-                // my={4}
             >
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box
-                        sx={{
-                            marginBottom: "-25px",
-                            // marginTop: "-22px",
-                        }}
-                    >
-                        <img
-                            src={images}
-                            alt={name}
-                            width={"95%"}
-                            height={"185px"}
-                            style={{
-                                borderRadius: "5px",
-                                objectFit: "contain",
-                                alignSelf: "center",
-                                marginLeft: "2.5%",
-                                marginRight: "2.5%",
-                                objectFit: "contain",
-                            }}
-                        />
-                    </Box>
-                    <Box component={Paper} m={3} width={"100%"}>
-                        {showPurchaseRequests === true &&
-                            purchaseRequests &&
-                            alreadySold === false &&
-                            purchaseRequests.map((item, i) => (
-                                <Box
-                                    key={item.uid + i}
-                                    display={"flex"}
-                                    justifyContent="space-between"
-                                    alignItems={"center"}
-                                    width={"90%"}
-                                    p={2}
-                                >
-                                    <Typography>{item.name}</Typography>
-                                    <Button
-                                        onClick={() => {
-                                            sell(item.walletAddress, item.uid);
-                                        }}
-                                        variant="contained"
-                                    >
-                                        Sell
-                                    </Button>
-                                </Box>
-                            ))}
-                    </Box>
-                </Box>
-                <Box width={"100%"} sx={{ paddingLeft: "7px" }}>
+                <img
+                    src={images}
+                    width="100%"
+                    height={"100%"}
+                    style={{ borderRadius: "6px 6px 0 0" }}
+                    alt={name}
+                />
+            </Box>
+            <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"stretch"}
+                width="50%"
+                m={4}
+            >
+                <Box
+                    sx={{
+                        display: "flex",
+                        marginY: 5,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}
+                >
                     <Typography variant="h3">{name}</Typography>
+                    <a href={titleDeed.fileAddress} target="_blank">
+                        <Button variant="outlined">title deed</Button>
+                    </a>
+                </Box>
 
+                {showPurchaseRequests === true &&
+                    purchaseRequests &&
+                    alreadySold === false && (
+                        <Box
+                            border={"1px solid grey"}
+                            p={2}
+                            overflow={"hidden scroll"}
+                            display={
+                                purchaseRequests.length == 0 ? "none" : "block"
+                            }
+                        >
+                            {purchaseRequests.map((item, i) => (
+                                <>
+                                    <Box
+                                        key={item.uid + i}
+                                        display={"flex"}
+                                        justifyContent="space-between"
+                                        alignItems={"center"}
+                                        p={2}
+                                    >
+                                        <Typography>{item.name}</Typography>
+                                        <Button
+                                            onClick={() => {
+                                                sell(
+                                                    item.walletAddress,
+                                                    item.uid
+                                                );
+                                            }}
+                                            variant="contained"
+                                        >
+                                            Sell
+                                        </Button>
+                                    </Box>
+                                    {purchaseRequests.length - 1 == i ? (
+                                        ""
+                                    ) : (
+                                        <Divider />
+                                    )}
+                                </>
+                            ))}
+                        </Box>
+                    )}
+                {authorize === true && authorizeToSellState === false && (
                     <Box
                         sx={{
                             display: "flex",
-                            marginY: 3,
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "100%",
+                            flexDirection: "column",
+                            justifyContent: "space-around",
+                            textAlign: "left",
                         }}
                     >
-                        <a href={titleDeed.fileAddress} target="_blank">
-                            <Button variant="contained">title deed</Button>
-                        </a>
-                    </Box>
-                    {authorize === true && authorizeToSellState === false && (
-                        <Box
+                        <TextField
+                            value={token}
+                            onChange={(e) => setToken(e.target.value)}
+                            label="Token Amount"
                             sx={{
-                                marginX: 2,
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-around",
-                                textAlign: "left",
+                                marginBottom: "14px",
                             }}
                         >
-                            <TextField
-                                value={token}
-                                onChange={(e) => setToken(e.target.value)}
-                                label="Token Amount"
-                                sx={{
-                                    marginBottom: "14px",
-                                }}
-                            >
-                                {" "}
-                            </TextField>
-                            <TextField
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                label="Selling Price"
-                                sx={{
-                                    marginBottom: "20px",
-                                }}
-                            >
-                                {" "}
-                            </TextField>
-                        </Box>
-                    )}
-                </Box>
+                            {" "}
+                        </TextField>
+                        <TextField
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            label="Selling Price"
+                            sx={{
+                                marginBottom: "20px",
+                            }}
+                        >
+                            {" "}
+                        </TextField>
+                    </Box>
+                )}
                 {authorize === true && authorizeToSellState === false && (
                     <Box>
                         <Button
                             variant="contained"
+                            size="large"
                             onClick={listPropertyForSale}
                         >
                             List Property

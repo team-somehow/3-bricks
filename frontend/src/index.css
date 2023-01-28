@@ -48,3 +48,16 @@ a {
 .css-cveggr-MuiListItemIcon-root {
     color: inherit !important;
 }
+
+.MuiBox-root::-webkit-scrollbar {
+    width: 4px;
+}
+.MuiBox-root::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.MuiBox-root::-webkit-scrollbar-thumb {
+    background: #888;
+}
+.MuiBox-root::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
