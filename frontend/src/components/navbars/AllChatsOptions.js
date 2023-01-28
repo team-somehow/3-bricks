@@ -4,12 +4,11 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { db, auth } from '../../config/firebase';
+import { db, auth } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import NavLink from "./NavLink";
-import Logo from "../../assets/logo.png";
 import { useEffect, useState } from "react";
-import ChatIcon from '@mui/icons-material/Chat';
+import ChatIcon from "@mui/icons-material/Chat";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const AllChatsOptions = (props) => {
@@ -20,29 +19,30 @@ const AllChatsOptions = (props) => {
     useEffect(() => {
         let userUIDs = props.allChatter;
         // console.log(props)
-        let arr = [];  
+        let arr = [];
         const getData = async () => {
-            for (let i=0; i<userUIDs.length; ++i) {
+            for (let i = 0; i < userUIDs.length; ++i) {
                 const docRef = doc(db, "UserAuth", userUIDs[i]);
                 const docSnap = await getDoc(docRef);
                 // console.log("Document data:", docSnap.data());
                 arr.push(docSnap.data().name);
             }
-            let i=-1;
+            let i = -1;
             setAllChatter(arr);
             // console.log(arr);
-            setRenderList(arr.map(doc => 
-                <NavLink
-                text={doc}
-                icon={<ChatIcon />}
-                key={doc} 
-                
-                onClickNavigateTo={`/chats?chatter=${userUIDs[++i]}`}
-                />
+            setRenderList(
+                arr.map((doc) => (
+                    <NavLink
+                        text={doc}
+                        icon={<ChatIcon />}
+                        key={doc}
+                        onClickNavigateTo={`/chats?chatter=${userUIDs[++i]}`}
+                    />
                 ))
-        }
+            );
+        };
         getData();
-    }, [props.allChatter])
+    }, [props.allChatter]);
 
     // console.log(allChatter);
 
@@ -77,8 +77,7 @@ const AllChatsOptions = (props) => {
                             display: "flex",
                             alignItems: "center",
                         }}
-                    >
-                    </div>
+                    ></div>
                     {renderList}
                 </List>
                 <Box
@@ -86,8 +85,7 @@ const AllChatsOptions = (props) => {
                     width={"calc(100% - 20px)"}
                     bottom={"20px"}
                     margin={"auto"}
-                >
-                </Box>
+                ></Box>
             </Box>
         </Drawer>
     );
