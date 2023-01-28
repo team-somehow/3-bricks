@@ -189,7 +189,6 @@ function Admin() {
             >
                 <Box
                     component={Paper}
-                    // elevation={6}
                     sx={{
                         backgroundColor: "white",
                         padding: "2%",

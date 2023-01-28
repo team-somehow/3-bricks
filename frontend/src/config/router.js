@@ -14,6 +14,7 @@ import SellerDashboard from "../components/navbars/SellerDashboard";
 
 import AuthChecker from "../components/auth/AuthChecker";
 import Chat from "../screens/Chat";
+import AllChats from "../screens/AllChat";
 
 const router = createBrowserRouter([
     {
@@ -73,16 +74,18 @@ const router = createBrowserRouter([
     },
     {
         path: "/chat",
-        children: [
-            {
-                path: "/chat",
-                element: (
-                    <AuthChecker>
-                        <Admin />
-                    </AuthChecker>
-                ),
-            },
-        ],
+		children:[
+			{
+				path:"/chat",
+				element: (
+					<AuthChecker>
+						<AllChats />
+					</AuthChecker>
+				),
+			}
+
+		]
+        
     },
     {
         path: "/admin",

@@ -61,14 +61,15 @@ const MyProperties = () => {
             <Box
                 component={Paper}
                 sx={{
-                    width: "100%",
-                    textAlign: "center",
-                    borderRadius: "8px",
-                    paddingY: "2px",
                     backgroundColor: "white",
+                    padding: "2%",
+                    textAlign: "center",
+                    borderRadius: "0.5vw",
+                    marginBottom: "4.5vh",
+                    height: "10vh",
                 }}
             >
-                <Typography variant="h2">My Properties</Typography>
+                <Typography variant="h4">My Properties</Typography>
             </Box>
             <SearchInput updateProperties={updateProperties} />
             <Box
@@ -77,9 +78,7 @@ const MyProperties = () => {
                     display: "grid",
                     marginTop: "30px",
                     gridColumn: "3",
-                    // gridGap: "10px",
                     gridTemplateColumns: "1fr 1fr 1fr",
-                    // paddingX:"3%",
                     marginLeft: "-25px",
                 }}
             >
