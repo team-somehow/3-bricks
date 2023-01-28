@@ -1,6 +1,6 @@
 import React from "react";
 import { auth } from "../../config/firebase";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography,Paper } from "@mui/material";
 import ListingMyItem from "../../components/property/ListingMyItem";
 import { db } from "../../config/firebase.js";
 import { collection, getDocs } from "firebase/firestore";
@@ -48,6 +48,7 @@ const MyProperties = () => {
     return (
         <Box m={5}>
             <Box
+                component={Paper}
                 sx={{
                     width: "80%",
                     textAlign: "center",
