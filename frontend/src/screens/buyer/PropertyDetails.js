@@ -220,13 +220,15 @@ const PropertyDetails = () => {
                                     </Button>
                                 )}
 
-                            <Button
-                                variant="outlined"
-                                component={Link}
-                                to={`/chat/${ownerId}`}
-                            >
-                                Chat with Owner
-                            </Button>
+                            {ownerId !== auth.currentUser.uid && (
+                                <Button
+                                    variant="outlined"
+                                    component={Link}
+                                    to={`/chat/${ownerId}`}
+                                >
+                                    Chat with Owner
+                                </Button>
+                            )}
                         </Box>
                         <Typography
                             variant="h6"

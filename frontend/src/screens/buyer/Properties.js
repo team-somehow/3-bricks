@@ -43,19 +43,18 @@ const Properties = () => {
     return (
         <Box m={5}>
             <Box
-                component={Paper}
+                ccomponent={Paper}
                 sx={{
-                    backgroundColor: "white",
-                    padding: "2%",
+                    width: "100%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
+                    padding: "2%",
+                    backgroundColor: "white",
                     marginBottom: "4.5vh",
                     height: "10vh",
                 }}
             >
-                <Typography variant="h4">
-                    Available Properties
-                </Typography>
+                <Typography variant="h4">Availabe Properties</Typography>
             </Box>
             <SearchInput updateProperties={updateProperties} />
             <Box
