@@ -31,14 +31,6 @@ const AllChatsOptions = (props) => {
             let i = -1;
             setAllChatter(arr);
             // console.log(arr);
-            // let active=null;
-            // let url= new URL(window.location.href);
-            // let params = new URLSearchParams(url.search);
-            // const chatwith = params.get("chatter");
-            // if (chatwith!=null) {
-            //     active=chatwith;
-            // }
-            console.log(active);
             setRenderList(
                 arr.map((doc) => (
                     <NavLink
