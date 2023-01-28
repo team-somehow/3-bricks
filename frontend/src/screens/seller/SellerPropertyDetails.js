@@ -4,6 +4,7 @@ import { Box, Typography, Paper } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import ListingSellerItem from "../../components/property/ListingSellerItem";
+import CustomizedDialogs from "../../components/admin/DialogBox";
 
 function SellerPropertyDetails() {
     const [data, setData] = useState([]);
