@@ -18,6 +18,7 @@ const AllChatsOptions = (props) => {
     const currentRoute = useLocation().pathname;
     useEffect(() => {
         let userUIDs = props.allChatter;
+        let active = props.chatter;
         // console.log(props.allChatter);
         let arr = [];
         const getData = async () => {
@@ -30,6 +31,14 @@ const AllChatsOptions = (props) => {
             let i = -1;
             setAllChatter(arr);
             // console.log(arr);
+            // let active=null;
+            // let url= new URL(window.location.href);
+            // let params = new URLSearchParams(url.search);
+            // const chatwith = params.get("chatter");
+            // if (chatwith!=null) {
+            //     active=chatwith;
+            // }
+            console.log(active);
             setRenderList(
                 arr.map((doc) => (
                     <NavLink
@@ -37,13 +46,13 @@ const AllChatsOptions = (props) => {
                         icon={<ChatIcon />}
                         key={doc}
                         onClickNavigateTo={`/chat?chatter=${userUIDs[++i]}`}
-                        isActive={true}
+                        isActive={userUIDs[i]===active}
                     />
                 ))
             );
         };
         getData();
-    }, [props.allChatter]);
+    }, [props.allChatter, props.chatter]);
 
     // console.log(allChatter);
 
