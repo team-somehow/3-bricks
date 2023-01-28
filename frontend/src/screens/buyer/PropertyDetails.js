@@ -202,16 +202,23 @@ const PropertyDetails = () => {
                             Matic.{price}
                         </Typography>
                         <Box>
-                            {allowRequestPurchase && (
-                                <Button
-                                    variant="contained"
-                                    onClick={makeDeposit}
-                                    disabled={loading}
-                                    sx={{ marginX: 4 }}
-                                >
-                                    Request Purchase
-                                </Button>
+                            {ownerId === auth.currentUser.uid && (
+                                <Typography>
+                                    You already own this property
+                                </Typography>
                             )}
+
+                            {ownerId !== auth.currentUser.uid &&
+                                allowRequestPurchase && (
+                                    <Button
+                                        variant="contained"
+                                        onClick={makeDeposit}
+                                        disabled={loading}
+                                        sx={{ marginX: 4 }}
+                                    >
+                                        Request Purchase
+                                    </Button>
+                                )}
 
                             <Button
                                 variant="outlined"
@@ -245,14 +252,15 @@ const PropertyDetails = () => {
                                 <Paper
                                     sx={{
                                         marginX: 1,
-                                        paddingY:"0.65vw",
-                                        paddingX:"0.90vw",
-                                        height:"5vh",
-                                        borderRadius:"2.5vh"
-                                    }}  
+                                        paddingY: "0.65vw",
+                                        paddingX: "0.90vw",
+                                        height: "5vh",
+                                        borderRadius: "2.5vh",
+                                    }}
                                     key={index}
-                                    
-                                >{item}</Paper>
+                                >
+                                    {item}
+                                </Paper>
                             ))}
                         </Grid>
                     </Box>
