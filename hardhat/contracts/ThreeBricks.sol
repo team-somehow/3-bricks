@@ -100,13 +100,13 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         // console.log("transferAmt");
         // console.log(transferAmt);
 
-console.log(address(this).balance);
-console.log(address(buyerPayableAddress).balance);
+// console.log(address(this).balance);
+// console.log(address(buyerPayableAddress).balance);
 
         payable(buyerPayableAddress).transfer(transferAmt);
 
-console.log(address(this).balance);
-console.log(address(buyerPayableAddress).balance);
+// console.log(address(this).balance);
+// console.log(address(buyerPayableAddress).balance);
 
     }
 
