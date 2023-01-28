@@ -73,6 +73,29 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
     }
 
 
+    // helper
+    function tranfer(address from, address to, uint256 tokenId) public {
+        safeTransferFrom(from, to, tokenId);
+    }
+
+     // start escrow
+    function NFTOwnerStartEscrow(uint256 tokenId, address chosenBuyer) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can start escrow process");
+
+        // Transfer NFT from seller to this contract
+        tranfer(msg.sender, address(this), tokenId);
+
+        // refund all down payments
+        address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
+        for (uint256 i = 0; i < buyerAddresses.length; i++) {
+            if (buyerAddresses[i] != chosenBuyer) {
+                releaseDownPayment(tokenId, address(buyerAddresses[i]));
+            }
+        }
+
+    }
+
+
     // The following functions are overrides required by Solidity.
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
