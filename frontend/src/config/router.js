@@ -1,6 +1,7 @@
 import { Box } from "@mui/system";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Home from "../screens/Home";
+import Login from "../screens/Login";
 import Properties from "../screens/buyer/Properties";
 import MyProperties from "../screens/buyer/MyProperties";
 import PropertyDetails from "../screens/buyer/PropertyDetails";
@@ -38,7 +39,6 @@ const router = createBrowserRouter([
                 element: <PropertyDetails />,
                 exact: true,
             },
-
             {
                 path: "/buyer/my",
                 element: <MyProperties />,
