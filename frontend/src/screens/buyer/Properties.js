@@ -28,16 +28,24 @@ const Properties = () => {
                 }
             });
             setData(tData);
+            setTempData(tData);
         };
         getProperties();
     }, []);
-
+    const updateProperties = (e) => {
+        const searchQuery = e.target.value;
+        if (searchQuery.trim().length == 0) setData(tempData);
+        else
+            setData(
+                tempData.filter((element) => element.name.includes(searchQuery))
+            );
+    };
     return (
         <Box m={5}>
             <Box
                 component={Paper}
                 sx={{
-                    width: "80%",
+                    width: "100%",
                     textAlign: "center",
                     borderRadius: "8px",
                     paddingY: "2px",
@@ -48,6 +56,7 @@ const Properties = () => {
                     Availabe Properties
                 </Typography>
             </Box>
+            <SearchInput updateProperties={updateProperties} />
             <Box
                 width={"76vw"}
                 sx={{
