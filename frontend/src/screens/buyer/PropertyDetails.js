@@ -223,7 +223,8 @@ const PropertyDetails = () => {
                             <Button
                                 variant="outlined"
                                 component={Link}
-                                to={`/chat/${ownerId}`}
+                                to={`/chat?chatter=${ownerId}`}
+                                sx={{ marginX: 4 }}
                             >
                                 Chat with Owner
                             </Button>
