@@ -102,7 +102,7 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
     }
 
     // util override 
-    function safeTransferFrom(address from, address to, uint256 tokenId) override(ERC721) public onlyRealeased(tokenId)  {
+    function safeTransferFrom(address from, address to, uint256 tokenId) override(ERC721) public  {
         require(from != address(0), "From address is not valid");
         require(to != address(0), "To address is not valid");
         require(_isApprovedOrOwner(from, tokenId), "Transfer not permitted");
