@@ -21,6 +21,11 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
     mapping(uint256 => uint256) public propertyPrice;
     mapping(uint256 => uint256) public downPayment;
 
+    // to maintain downpayment
+    mapping(uint256 => address[]) public tokenIdToBuyerAddress;
+    mapping(address => uint256) public buyerAddressToDownPayment;
+    mapping(address => address payable) public buyerAddressToBuyerPayableAddress;
+
 
     function mintNFT(address recipient, string memory ipfsTitleDeedURI, string memory propertyId) public onlyOwner returns (uint256) {
         require(!isContentOwned(ipfsTitleDeedURI), "NFT already minted");
@@ -53,6 +58,20 @@ contract NFTMinter is ERC721, ERC721URIStorage, Ownable {
         propertyPrice[tokenId] = _propertyPrice;
         downPayment[tokenId] = _downPayment;
     }
+    
+    // buyer can make down payment
+    function makeDownPayment(uint256 tokenId, address payable userPayableAddress) public payable {
+        require( msg.value >= downPayment[tokenId], "please deposit correct amount");
+        buyerAddressToDownPayment[msg.sender] += msg.value;
+        buyerAddressToBuyerPayableAddress[msg.sender] = userPayableAddress;
+    }
+
+    function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable onlyOwner {
+        address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
+        uint256 transferAmt = downPayment[tokenId];
+        buyerPayableAddress.transfer(transferAmt);
+    }
+
 
     // The following functions are overrides required by Solidity.
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
