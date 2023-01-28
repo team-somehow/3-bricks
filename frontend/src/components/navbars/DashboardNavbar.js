@@ -8,7 +8,6 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import NavLink from "./NavLink";
 import Logout from "../auth/Logout";
-import Logo from "../../assets/logo.png";
 
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import HandshakeIcon from "@mui/icons-material/Handshake";
@@ -49,7 +48,7 @@ const DashboardNavbar = (props) => {
                     >
                         <ListItem onClick={() => navigate("/")}>
                             <ListItemIcon>
-                                <img src={Logo} width={"40px"} />
+                                <img src="./../logo.png" width={"40px"} />
                             </ListItemIcon>
                             <ListItemText>
                                 <h2>3 Bricks</h2>

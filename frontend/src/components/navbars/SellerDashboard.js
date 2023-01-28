@@ -14,7 +14,6 @@ import HandshakeIcon from "@mui/icons-material/Handshake";
 import ChatIcon from "@mui/icons-material/Chat";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { useLocation, useNavigate } from "react-router-dom";
-import Logo from "../../assets/logo.png";
 
 const SellerDashboard = (props) => {
     const navigate = useNavigate();
@@ -54,7 +53,7 @@ const SellerDashboard = (props) => {
                     >
                         <ListItem>
                             <ListItemIcon>
-                                <img src={Logo} width={"40px"} />
+                                <img src="./../logo.png" width={"40px"} />
                             </ListItemIcon>
                             <ListItemText>
                                 <h2>3 Bricks</h2>

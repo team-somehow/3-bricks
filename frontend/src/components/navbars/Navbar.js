@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import HomeIcon from "@mui/icons-material/Home";
-import Logo from "../../assets/logo.png";
 
 import {
     auth,
@@ -104,7 +103,7 @@ function Navbar() {
                         <img
                             width={"40px"}
                             style={{ margin: "18px 0" }}
-                            src={Logo}
+                            src="./logo.png"
                         />
                         <Typography
                             variant="h5"

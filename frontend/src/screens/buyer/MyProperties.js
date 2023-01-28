@@ -5,8 +5,12 @@ import ListingMyItem from "../../components/property/ListingMyItem";
 import { db } from "../../config/firebase.js";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import SearchInput from "../../components/property/SearchInput";
+
 const MyProperties = () => {
     const [data, setData] = useState([]);
+    const [tempData, setTempData] = useState([]);
+
     useEffect(() => {
         console.log(auth.currentUser.uid);
         const getProperties = async () => {
@@ -39,17 +43,25 @@ const MyProperties = () => {
             });
 
             setData(tData);
+            setTempData(tData);
             console.log(tData);
         };
         getProperties();
     }, []);
-
+    const updateProperties = (e) => {
+        const searchQuery = e.target.value;
+        if (searchQuery.trim().length == 0) setData(tempData);
+        else
+            setData(
+                tempData.filter((element) => element.name.includes(searchQuery))
+            );
+    };
     return (
         <Box m={5}>
             <Box
                 component={Paper}
                 sx={{
-                    width: "80%",
+                    width: "100%",
                     textAlign: "center",
                     borderRadius: "8px",
                     paddingY: "2px",
@@ -58,6 +70,7 @@ const MyProperties = () => {
             >
                 <Typography variant="h2">My Properties</Typography>
             </Box>
+            <SearchInput updateProperties={updateProperties} />
             <Box
                 width={"76vw"}
                 sx={{
