@@ -31,9 +31,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "serve": "serve -s build",
-        "build-and-serve": "npm run build && npm run serve",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
+        "deploy": "npm run build && firebase deploy --only hosting:three-bricks-app",
         "pull": "git pull && npm i && npm start"
     },
     "eslintConfig": {
