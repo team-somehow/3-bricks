@@ -38,10 +38,10 @@ const Home = (props) => {
                     </Typography>
                     <Box sx={{ my: 4 }}>
                         <TickMark text={"Minimize Corruption"} />
-                        <TickMark text={"No middle men needed"} />
+                        <TickMark text={"No Middlemen needed"} />
                         <TickMark text={"Transperent Transactions"} />
-                        <TickMark text={"Handle Escrow onchain"} />
-                        <TickMark text={"Seamless transfer"} />
+                        <TickMark text={"Handle Escrow Onchain"} />
+                        <TickMark text={"Seamless Transfer"} />
                     </Box>
                     <Box sx={{ width: "30vw", display: "flex", mt: 2 }}>
                         <Button
@@ -51,7 +51,7 @@ const Home = (props) => {
                             fullWidth
                             sx={{
                                 mr: 3,
-                                p: 2,
+                                p: 1.8,
                                 borderRadius: 3,
                                 background:
                                     "linear-gradient(166.88deg, #54A3FF 9.45%, #348FF9 227.32%)",
@@ -68,7 +68,7 @@ const Home = (props) => {
                             fullWidth
                             sx={{
                                 mr: 3,
-                                p: 3,
+                                p: 1.8,
                                 borderRadius: 3,
                                 background:
                                     "linear-gradient(166.88deg, #54A3FF 9.45%, #348FF9 227.32%)",
@@ -100,18 +100,22 @@ const Home = (props) => {
                     />
                 </Box>
             </Box>
+            <Box marginTop={11}>
+                <SpecialPointSection
+                    heading="Industrial Applications"
+                    backgroundColor="#eef5f8"
+                    pointsList={[
+                        "Streamlined and automated property ownership transfer process using NFTs and smart contracts",
+                        "Increased transparency and security through the use of the blockchain for property ownership records",
+                    ]}
+                    imageUrl="https://media2.giphy.com/media/U22HxRRRXQDHrRwxz7/giphy.gif?cid=790b761128ae72216af0c92cd2b5d03ec12e4192a263eb3a&rid=giphy.gif&ct=s"
+                    // imageUrl="https://media1.giphy.com/media/4E5RAy2GhY4Lc84IMi/giphy.gif?cid=ecf05e47yw86f3c7su5uqmkrmz29jt4rq985bsroevfip1b9&rid=giphy.gif&ct=s"
+                    reverse={true}
+                />
+            </Box>
             <SpecialPointSection
-                heading="Industrial Applications"
-                pointsList={[
-                    "Streamlined and automated property ownership transfer process using NFTs and smart contracts",
-                    "Increased transparency and security through the use of the blockchain for property ownership records",
-                ]}
-                imageUrl="https://media2.giphy.com/media/U22HxRRRXQDHrRwxz7/giphy.gif?cid=790b761128ae72216af0c92cd2b5d03ec12e4192a263eb3a&rid=giphy.gif&ct=s"
-                // imageUrl="https://media1.giphy.com/media/4E5RAy2GhY4Lc84IMi/giphy.gif?cid=ecf05e47yw86f3c7su5uqmkrmz29jt4rq985bsroevfip1b9&rid=giphy.gif&ct=s"
-                reverse={true}
-            />
-            <SpecialPointSection
-                heading="Security Features"
+                heading="Security Features:"
+                backgroundColor="#fdf9fb"
                 pointsList={[
                     "Secure storage of property ownership records using the immutability and cryptographic features of the blockchain",
                     "Authentication and authorization mechanisms using smart contracts and digital signatures to ensure only authorized parties can transfer property ownership",
@@ -120,7 +124,8 @@ const Home = (props) => {
                 imageUrl="https://media4.giphy.com/media/IzLOkxWYZJQacKuUFn/giphy.gif?cid=790b7611f105d87d1f829218228d79a482783225ae95def7&rid=giphy.gif&ct=s"
             />
             <SpecialPointSection
-                heading="Powered by Polygon"
+                backgroundColor="#fefbef"
+                heading="Powered by Polygon:"
                 pointsList={[
                     "Accurate identification and verification of property ownership",
                     "Reduced time and cost for property ownership transfer and related processes",
@@ -128,11 +133,13 @@ const Home = (props) => {
                 imageUrl={polygon}
                 reverse={true}
             />
-            <SpecialPointSection
-                heading="What problems are we solving?"
-                isOnlyImage={true}
-                imageUrl={problemsImg}
-            />
+            <Box paddingTop={2} bgcolor={"white"}>
+                <SpecialPointSection
+                    heading="What problems are we solving?"
+                    isOnlyImage={true}
+                    imageUrl={problemsImg}
+                />
+            </Box>
             <Box height={"10vh"}></Box>
         </>
     );
