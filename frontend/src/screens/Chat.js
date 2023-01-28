@@ -10,8 +10,26 @@ import ChatIcon from '@mui/icons-material/Chat';
 const AllChatsOptions = (props) => {
     const [allChatter, setAllChatter] = useState([]);
     const [renderList, setRenderList] = useState();
+    const navigate = useNavigate();
+    const currentRoute = useLocation().pathname;
 
-    // console.log(allChatter);
+    useEffect(() => {
+      let userUIDs = props.allChatter;
+      // console.log(props)
+      let arr = [];  
+      const getData = async () => {
+          for (let i=0; i<userUIDs.length; ++i) {
+              const docRef = doc(db, "UserAuth", userUIDs[i]);
+              const docSnap = await getDoc(docRef);
+              // console.log("Document data:", docSnap.data());
+              arr.push(docSnap.data().name);
+          }
+          let i=-1;
+          setAllChatter(arr);
+          // console.log(arr);
+      }
+      getData();
+  }, [props.allChatter])
 
     return (
         <Drawer
@@ -44,6 +62,8 @@ const AllChatsOptions = (props) => {
                 <Box
                     position={"absolute"}
                     width={"calc(100% - 20px)"}
+                    bottom={"20px"}
+                    margin={"auto"}
                 >
                 </Box>
             </Box>
