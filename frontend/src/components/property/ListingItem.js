@@ -1,84 +1,95 @@
 import { Button, Typography, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import Matic from "../../assets/matic.png";
+import LocationPin from "../../assets/location.png";
 
 const ListingItem = (props) => {
     const { name, price, images, id, city, propertyType } = props;
-
+    const navigate = useNavigate();
     return (
         <Paper
             sx={{
-                padding: 4,
+                padding: 1,
                 my: 3,
-                maxWidth: "23vw",
-                // maxHeight: "500px",
-                paddingBottom: "5px",
-                borderRadius: "15px",
+                width: "350px",
+                height: "420px",
+                borderRadius: "6px",
                 cursor: "pointer",
                 "&:hover": {
                     // transitionDelay: "2s",
-                    boxShadow: "-2px 6px 20px 5px rgba(0,0,0,0.3)",
+                    // boxShadow: "-2px 6px 20px 5px rgba(0,0,0,0.3)",
+                    boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
                 },
+            }}
+            onClick={() => {
+                navigate(`/property/${id}`);
             }}
         >
             <Box
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
+                    width: "100%",
+                    height: "60%",
+                    transition: "all 0.3s ease",
+                    // "&:hover": { transform: "scale(0.98)" },
                 }}
-                my={4}
             >
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box
-                        sx={{
-                            // marginBottom: "20px",
-                            marginTop: "-22px",
-                        }}
+                <img
+                    src={images}
+                    width="100%"
+                    height={"100%"}
+                    style={{ borderRadius: "6px 6px 0 0" }}
+                    alt={name}
+                />
+            </Box>
+            <Box m={1}>
+                <Box
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    flexWrap={"wrap"}
+                >
+                    <Typography
+                        variant="h4"
+                        fontSize={"36px"}
+                        color="rgb(52, 143, 249)"
+                        textTransform="uppercase"
+                        letterSpacing={"1px"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace="nowrap"
+                    >
+                        {name}
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        sx={{ marginBottom: "14px" }}
+                        style={{ display: "flex", alignItems: "center" }}
                     >
                         <img
-                            src={images}
-                            alt={name}
-                            width={"95%"}
-                            height={"185px"}
-                            style={{
-                                borderRadius: "5px",
-                                objectFit: "contain",
-                                alignSelf: "center",
-                                marginLeft: "2.5%",
-                                marginRight: "2.5%",
-                            }}
+                            src={LocationPin}
+                            width={"30px"}
+                            style={{ marginRight: "6px" }}
                         />
-                    </Box>
-                    <Box
-                        sx={{
-                            marginX: 2,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-around",
-                            textAlign: "left",
-                        }}
-                    >
-                        <Typography fontSize={"2.3rem"}>{name}</Typography>
-                        <Typography
-                            fontSize={"1.1rem"}
-                            sx={{ marginBottom: "20px" }}
-                        >
-                            {propertyType}
-                        </Typography>
-
-                        <Typography variant="h5" sx={{ marginBottom: "14px" }}>
-                            Matic {price}
-                        </Typography>
-
-                        <Typography variant="body">
-                            <img
-                                src="/location.png"
-                                style={{ width: "20px", marginRight: "5px" }}
-                            />
-                            {city}
-                        </Typography>
-                    </Box>
+                        {city}
+                    </Typography>
                 </Box>
+                <Typography variant="h6" fontSize={16} mx={1}>
+                    {propertyType}
+                </Typography>
+
+                <Typography
+                    variant="h5"
+                    sx={{ marginBottom: "6px" }}
+                    style={{ display: "flex", alignItems: "center" }}
+                >
+                    <img
+                        src={Matic}
+                        width={"40px"}
+                        style={{ marginRight: "6px" }}
+                    />
+                    {price}
+                </Typography>
             </Box>
         </Paper>
     );
