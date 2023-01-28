@@ -23,7 +23,7 @@ const ListingItem = (props) => {
                 },
             }}
             onClick={() => {
-                navigate(`/property/${id}`);
+                navigate(`/buyer/browse/${id}`);
             }}
         >
             <Box
