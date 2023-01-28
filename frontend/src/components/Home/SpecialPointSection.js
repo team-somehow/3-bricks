@@ -10,6 +10,7 @@ function SpecialPointSection({
     pointsList,
     isOnlyImage = false,
     reverse = false,
+    backgroundColor = "#ffffff",
 }) {
     useEffect(() => {
         console.log(pointsList && pointsList.map);
@@ -20,7 +21,7 @@ function SpecialPointSection({
 
     return (
         <Box
-            m={6}
+            bgcolor={backgroundColor}
             display={"flex"}
             alignItems="center"
             height={"100vh"}
