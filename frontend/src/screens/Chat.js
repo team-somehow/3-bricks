@@ -22,7 +22,6 @@ import {
     query,
     serverTimestamp,
 } from "firebase/firestore";
-import { useParams } from "react-router-dom";
 
 const Chat = (props) => {
     const [messages, setMessages] = useState([]);
@@ -31,6 +30,12 @@ const Chat = (props) => {
     const userId = props.chatter;
     const scroll = useRef();
     // console.log("userId is ", userId);
+//     onKeyDown={(e) => {
+//         if (e.key === "Enter") {
+//            console.log("hello enter pressed");
+//            handleSend();
+//        }
+//    }}
 
     useEffect(() => {
         const q = query(collection(db, "messages"), orderBy("timestamp"));
@@ -84,7 +89,7 @@ const Chat = (props) => {
                     margin: "5%",
                     height: "70vh",
                     position: "absolute",
-                    right: "-2.5%",
+                    right: "-3%",
                     top: "10%",
                     boxShadow: "none",
                     background: "none"
@@ -156,13 +161,9 @@ const Chat = (props) => {
                             onChange={(e) => {
                                 setMessage(e.target.value);
                             }}
+                            placeholder="Enter Message Here"
                         ></TextField>
-                        <Button variant="contained" onClick={handleSend} onKeyDown={(e) => {
-                             if (e.key === "Enter") {
-                                console.log("hello enter pressed");
-                                handleSend();
-                            }
-                        }}>
+                        <Button variant="contained" onClick={handleSend}>
                             <SendIcon />
                         </Button>
                     </Box>

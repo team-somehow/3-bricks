@@ -29,11 +29,8 @@ const PropertyDetails = () => {
         images,
         city,
         address,
-        type,
         amenities,
         ownerId,
-        deposit,
-        monthly,
         purchaseRequests,
     } = data;
 
