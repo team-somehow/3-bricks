@@ -47,7 +47,6 @@ const ListingItem = (props) => {
                     display={"flex"}
                     alignItems={"center"}
                     justifyContent={"space-between"}
-                    flexWrap={"wrap"}
                 >
                     <Typography
                         variant="h4"
@@ -58,6 +57,7 @@ const ListingItem = (props) => {
                         overflow={"hidden"}
                         textOverflow={"ellipsis"}
                         whiteSpace="nowrap"
+                        paddingRight={2}
                     >
                         {name}
                     </Typography>
@@ -67,7 +67,7 @@ const ListingItem = (props) => {
                         style={{ display: "flex", alignItems: "center" }}
                     >
                         <img
-                            src="../assets/location.png"
+                            src="/assets/location.png"
                             width={"30px"}
                             style={{ marginRight: "6px" }}
                         />
@@ -84,7 +84,7 @@ const ListingItem = (props) => {
                     style={{ display: "flex", alignItems: "center" }}
                 >
                     <img
-                        src="../assets/matic.png"
+                        src="/assets/matic.png"
                         width={"40px"}
                         style={{ marginRight: "6px" }}
                     />
