@@ -1,4 +1,12 @@
-import { Alert, Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    Grid,
+    Paper,
+    TextField,
+    Typography,
+} from "@mui/material";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
@@ -30,6 +38,17 @@ const names = [
     "partyhall",
     "theatre",
 ];
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 const AddProperty = () => {
     const user = auth.currentUser;
@@ -182,179 +201,246 @@ const AddProperty = () => {
     };
 
     return (
-        <Box p={5} display="flex">
-            <Box mr={10}>
-                <Typography variant="h2" mt={4} mb={12}>
-                    Add a property
+        <Box width={"73%"}>
+            <Box
+                component={Paper}
+                sx={{
+                    width: "73%",
+                    textAlign: "center",
+                    borderRadius: "0.5vw",
+                    padding: "1.5%",
+                    // backgroundColor: "white",
+                    // marginBottom: "4.5vh",
+                    height: "10vh",
+                    m: 5,
+                    position: "fixed",
+                    alignItems: "center",
+                    verticalAlign: "center",
+                }}
+            >
+                <Typography variant="h4" sx={{}}>
+                    List A Property
                 </Typography>
-                <Box display={errorMessage ? "block" : "none"}>
-                    <Alert
-                        style={{ marginBottom: "18px" }}
-                        severity="error"
-                        onClose={() => setErrorMessage("")}
-                    >
-                        {errorMessage}
-                    </Alert>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        gap: "3vh",
-                    }}
-                >
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        label="Property ID"
-                        // value={propertyID}
-                        onChange={(e) => setPropertyID(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        // value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        label="Name"
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        label="City"
-                        // value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        label="Full Legal Address"
-                        // value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
-
-                    <div
-                        style={{
-                            display: "none",
+            </Box>
+            <Box p={5} display="flex" mt={"17vh"}>
+                <Box width={"100%"} mr={10}>
+                    <Box display={errorMessage ? "block" : "none"}>
+                        <Alert
+                            style={{ marginBottom: "18px" }}
+                            severity="error"
+                            onClose={() => setErrorMessage("")}
+                        >
+                            {errorMessage}
+                        </Alert>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            gap: "3vh",
+                            mt: "-3vh",
                         }}
                     >
                         <TextField
                             fullWidth
                             variant="outlined"
-                            label="Price (Matic)"
-                            onChange={(e) => setPrice(e.target.value)}
+                            label="Property ID"
+                            // value={propertyID}
+                            onChange={(e) => setPropertyID(e.target.value)}
                             required
                         />
-                    </div>
-
-                    <Autocomplete
-                        required
-                        value={propertyType}
-                        onChange={(event, newValue) => {
-                            if (typeof newValue === "string") {
-                                setPropertyType(newValue.title);
-                            } else if (newValue && newValue.inputValue) {
-                                setPropertyType(newValue.inputValue);
-                            } else {
-                                setPropertyType(newValue.title);
-                            }
-                        }}
-                        filterOptions={(options, params) => {
-                            const filtered = filter(options, params);
-
-                            const { inputValue } = params;
-                            // Suggest the creation of a new value
-                            const isExisting = options.some(
-                                (option) => inputValue === option.title
-                            );
-                            if (inputValue !== "" && !isExisting) {
-                                filtered.push({
-                                    inputValue,
-                                    title: `Add "${inputValue}"`,
-                                });
-                            }
-
-                            return filtered;
-                        }}
-                        selectOnFocus
-                        clearOnBlur
-                        handleHomeEndKeys
-                        id="Type of property"
-                        options={propertyOptions}
-                        getOptionLabel={(option) => {
-                            if (typeof option === "string") {
-                                return option;
-                            }
-                            if (option.inputValue) {
-                                return option.inputValue;
-                            }
-                            return option.title;
-                        }}
-                        renderOption={(props, option) => (
-                            <li {...props}>{option.title}</li>
-                        )}
-                        sx={{ width: 300 }}
-                        freeSolo
-                        renderInput={(params) => (
-                            <TextField {...params} label="Type of Property" />
-                        )}
-                    />
-                    {/* <TextField
-                        fullWidth
-                        placeholder="Amenities"
-                        onChange={(e) => setAmenities(e.target.value)}
-                    /> */}
-                    <FormControl sx={{ m: 1, width: 550 }}>
-                        <Select
-                            // labelId=""
-                            required
-                            label="Amenities"
-                            id="demo-multiple-chip"
-                            multiple
-                            value={amenities}
+                        <TextField
+                            fullWidth
                             variant="outlined"
-                            onChange={handleChange}
-                            input={
-                                <OutlinedInput
-                                    id="select-multiple-chip"
-                                    label="Chip"
-                                />
-                            }
-                            renderValue={(selected) => (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 0.5,
-                                    }}
-                                >
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </Box>
-                            )}
-                            // MenuProps={MenuProps}
-                        >
-                            {names.map((name) => (
-                                <MenuItem
-                                    key={name}
-                                    value={name}
-                                    style={getStyles(name, amenities, theme)}
-                                >
-                                    {name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                            // value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            label="Name"
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            variant="outlined"
+                            label="City"
+                            // value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            variant="outlined"
+                            label="Full Legal Address"
+                            // value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                        />
 
+                        <div
+                            style={{
+                                display: "none",
+                            }}
+                        >
+                            <TextField
+                                fullWidth
+                                variant="outlined"
+                                label="Price (Matic)"
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <Autocomplete
+                            required
+                            value={propertyType}
+                            onChange={(event, newValue) => {
+                                if (typeof newValue === "string") {
+                                    setPropertyType(newValue.title);
+                                } else if (newValue && newValue.inputValue) {
+                                    setPropertyType(newValue.inputValue);
+                                } else {
+                                    setPropertyType(newValue.title);
+                                }
+                            }}
+                            filterOptions={(options, params) => {
+                                const filtered = filter(options, params);
+
+                                const { inputValue } = params;
+                                // Suggest the creation of a new value
+                                const isExisting = options.some(
+                                    (option) => inputValue === option.title
+                                );
+                                if (inputValue !== "" && !isExisting) {
+                                    filtered.push({
+                                        inputValue,
+                                        title: `Add "${inputValue}"`,
+                                    });
+                                }
+
+                                return filtered;
+                            }}
+                            selectOnFocus
+                            clearOnBlur
+                            handleHomeEndKeys
+                            id="Type of property"
+                            options={propertyOptions}
+                            getOptionLabel={(option) => {
+                                if (typeof option === "string") {
+                                    return option;
+                                }
+                                if (option.inputValue) {
+                                    return option.inputValue;
+                                }
+                                return option.title;
+                            }}
+                            renderOption={(props, option) => (
+                                <li {...props}>{option.title}</li>
+                            )}
+                            sx={{}}
+                            freeSolo
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Type of Property"
+                                    required
+                                />
+                            )}
+                        />
+                        <FormControl fullWidth sx={{}}>
+                            <InputLabel id="demo-multiple-chip-label">
+                                Amenities
+                            </InputLabel>
+                            <Select
+                                required
+                                labelId="demo-multiple-chip-label"
+                                id="demo-multiple-chip"
+                                multiple
+                                value={amenities}
+                                onChange={handleChange}
+                                input={
+                                    <OutlinedInput
+                                        id="select-multiple-chip"
+                                        label="Amenities"
+                                    />
+                                }
+                                renderValue={(selected) => (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            gap: 0.5,
+                                        }}
+                                    >
+                                        {selected.map((value) => (
+                                            <Chip key={value} label={value} />
+                                        ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}
+                            >
+                                {names.map((name) => (
+                                    <MenuItem
+                                        key={name}
+                                        value={name}
+                                        style={getStyles(
+                                            name,
+                                            amenities,
+                                            theme
+                                        )}
+                                    >
+                                        {name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
+                        <input
+                            required
+                            onChange={(e) => setTitleDeed(e.target.files)}
+                            ref={titleDeedRef}
+                            type="file"
+                            style={{ display: "none" }}
+                        />
+                        <Button
+                            variant="outlined"
+                            size="large"
+                            sx={{ marginY: 2 }}
+                            onClick={() => titleDeedRef.current.click()}
+                            startIcon={titleDeed && <CheckCircleOutlineIcon />}
+                        >
+                            Upload title Deed
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={handleConnect}
+                            disabled={connected}
+                        >
+                            Connect Wallet
+                        </Button>
+
+                        <Button
+                            variant="contained"
+                            onClick={upload}
+                            disabled={loading || !walletConnected}
+                        >
+                            Submit Data
+                        </Button>
+                    </Box>
+                </Box>
+                <Box width="50%">
+                    <Grid container justifyContent={"center"}>
+                        <img
+                            src={
+                                image
+                                    ? URL.createObjectURL(image[0])
+                                    : "/placeholder-img.jpg"
+                            }
+                            width={300}
+                            alt="Property Images"
+                        />
+                    </Grid>
                     <input
-                        required
-                        onChange={(e) => setTitleDeed(e.target.files)}
-                        ref={titleDeedRef}
+                        onChange={(e) => setImage(e.target.files)}
+                        ref={imageUploadRef}
                         type="file"
                         style={{ display: "none" }}
                     />
@@ -362,54 +448,12 @@ const AddProperty = () => {
                         variant="outlined"
                         size="large"
                         sx={{ marginY: 2 }}
-                        onClick={() => titleDeedRef.current.click()}
-                        startIcon={titleDeed && <CheckCircleOutlineIcon />}
+                        fullWidth
+                        onClick={() => imageUploadRef.current.click()}
                     >
-                        Upload title Deed
-                    </Button>
-                    <Button
-                        variant="contained"
-                        onClick={handleConnect}
-                        disabled={connected}
-                    >
-                        Connect Wallet
-                    </Button>
-
-                    <Button
-                        variant="contained"
-                        onClick={upload}
-                        disabled={loading || !walletConnected}
-                    >
-                        Submit Data
+                        Click to add Images
                     </Button>
                 </Box>
-            </Box>
-            <Box width="30%" mt={10}>
-                <Grid container spacing={3}>
-                    <img
-                        src={
-                            image
-                                ? URL.createObjectURL(image[0])
-                                : "https://picsum.photos/600/400"
-                        }
-                        width={"100%"}
-                        alt="Property Images"
-                    />
-                </Grid>
-                <input
-                    onChange={(e) => setImage(e.target.files)}
-                    ref={imageUploadRef}
-                    type="file"
-                    style={{ display: "none" }}
-                />
-                <Button
-                    variant="outlined"
-                    size="large"
-                    sx={{ marginY: 2 }}
-                    onClick={() => imageUploadRef.current.click()}
-                >
-                    Click to add Images
-                </Button>
             </Box>
         </Box>
     );
