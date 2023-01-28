@@ -9,6 +9,9 @@ import SellerPropertyDetails from "../screens/seller/SellerPropertyDetails";
 import Chat from "../screens/Chat";
 import Admin from "../screens/admin/Admin";
 import DashboardNavbar from "../components/navbars/DashboardNavbar";
+import SellerDashboard from "../components/navbars/SellerDashboard";
+
+import AuthChecker from "../components/auth/AuthChecker";
 
 const router = createBrowserRouter([
 	{
@@ -46,9 +49,12 @@ const router = createBrowserRouter([
 	{
 		path: "/seller",
 		element: (
-			<Box>
-				<Outlet />
-			</Box>
+			<AuthChecker>
+				<Box display="flex">
+					<SellerDashboard />
+					<Outlet/>
+				</Box>
+			</AuthChecker>
 		),
 		children: [
 			{ path: "/seller/create", exact: true, element: <AddProperty /> },
