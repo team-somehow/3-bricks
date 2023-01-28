@@ -61,7 +61,7 @@ const MyProperties = () => {
             <Box
                 component={Paper}
                 sx={{
-                    width: "100%",
+                    width: "80%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
                     padding: "1.4%",

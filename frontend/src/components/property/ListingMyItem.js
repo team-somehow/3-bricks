@@ -73,8 +73,8 @@ const ListingItem = (props) => {
             sx={{
                 padding: 1,
                 my: 3,
-                width: "350px",
-                height: "420px",
+                width: "380px",
+                height: "450px",
                 borderRadius: "6px",
                 cursor: "pointer",
                 "&:hover": {
@@ -119,48 +119,61 @@ const ListingItem = (props) => {
                 />
                 {price}
             </Typography>
-            {
-                (auth.currentUser.uid !== ownerId,
-                price,
-                downPaymentPrice && (
-                    <>
-                        {maiKhareedSakta && (
-                            <Button
-                                variant="outlined"
-                                startIcon={<DoneAllRoundedIcon />}
-                                disableRipple={true}
-                                disableFocusRipple={true}
-                            >
-                                Approved
-                            </Button>
-                        )}
-                        {!maiKhareedSakta && !paymentMade && (
-                            <Button
-                                variant="outlined"
-                                startIcon={<AccessTimeIcon />}
-                                disableRipple={true}
-                                disableFocusRipple={true}
-                                size="large"
-                                fullWidth
-                            >
-                                Waiting For Approval
-                            </Button>
-                        )}
-                    </>
-                ))
-            }
-            <Box>
-                {paymentMade ? (
-                    <Typography>You own this property now</Typography>
-                ) : (
-                    <>
-                        {maiKhareedSakta && (
-                            <Button variant="outlined" onClick={makePayment}>
-                                Complete payment and own house
-                            </Button>
-                        )}
-                    </>
-                )}
+            <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                m={1}
+            >
+                {
+                    (auth.currentUser.uid !== ownerId,
+                    price,
+                    downPaymentPrice && (
+                        <>
+                            {maiKhareedSakta && (
+                                <Button
+                                    size="large"
+                                    variant="contained"
+                                    startIcon={<DoneAllRoundedIcon />}
+                                    disableRipple={true}
+                                    disableFocusRipple={true}
+                                >
+                                    Approved
+                                </Button>
+                            )}
+                            {!maiKhareedSakta && !paymentMade && (
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<AccessTimeIcon />}
+                                    disableRipple={true}
+                                    disableFocusRipple={true}
+                                    size="large"
+                                    fullWidth
+                                    disabled={auth.currentUser.uid === ownerId}
+                                >
+                                    {auth.currentUser.uid !== ownerId
+                                        ? `Waiting For Approval`
+                                        : `You own the property`}
+                                </Button>
+                            )}
+                        </>
+                    ))
+                }
+                <Box>
+                    {!paymentMade && auth.currentUser.uid !== ownerId && (
+                        <>
+                            {maiKhareedSakta && (
+                                <Button
+                                    size="large"
+                                    variant="outlined"
+                                    onClick={makePayment}
+                                >
+                                    Complete payment
+                                </Button>
+                            )}
+                        </>
+                    )}
+                </Box>
             </Box>
         </Paper>
     );
