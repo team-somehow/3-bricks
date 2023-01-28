@@ -15,10 +15,10 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ApprovalIcon from "@mui/icons-material/Approval";
-import RequestListItem from "../components/admin/RequestListItem";
+import RequestListItem from "../../components/admin/RequestListItem";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../config/firebase";
-import Wallet from "../components/admin/Wallet.png";
+import { db } from "../../config/firebase";
+import Wallet from "../../components/admin/Wallet.png";
 
 function Admin() {
     const [data, setData] = useState([]);
@@ -178,7 +178,7 @@ function Admin() {
                 >
                     <Typography variant="h4"> Ownership Validation</Typography>
                 </Box>
-                > */}
+                
                 <Box sx={{ overflowY: "scroll", height: "80vh" }}>
                     {data.map((item, index) => (
                         <RequestListItem {...item} key={item.id} />
