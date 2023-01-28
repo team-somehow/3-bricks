@@ -28,10 +28,18 @@ const Properties = () => {
                 }
             });
             setData(tData);
+            setTempData(tData);
         };
         getProperties();
     }, []);
-
+    const updateProperties = (e) => {
+        const searchQuery = e.target.value;
+        if (searchQuery.trim().length == 0) setData(tempData);
+        else
+            setData(
+                tempData.filter((element) => element.name.includes(searchQuery))
+            );
+    };
     return (
         <Box m={5}>
             <Box
@@ -48,6 +56,7 @@ const Properties = () => {
                     Availabe Properties
                 </Typography>
             </Box>
+            <SearchInput updateProperties={updateProperties} />
             <Box
                 width={"76vw"}
                 sx={{
