@@ -67,8 +67,10 @@ function AllChats() {
     <>
         <Navbar />
         <DashboardNavbar />
-        <div style={{marginTop: "500px", opacity: 0.95}} onClick={updateChat}><AllChatsOptions allChatter={otherPerson}/></div>
-        <div>{chatter!=null && <Chat location={locateme} chatter={chatter}/>}</div>
+        <div style={{marginTop: "500px", opacity: 0.95}} onClick={updateChat}>
+            {otherPerson.length>0 && <AllChatsOptions allChatter={otherPerson}/>}
+            </div>
+        {chatter!=null && <Chat location={locateme} chatter={chatter}/>}
     </>
   )
 }

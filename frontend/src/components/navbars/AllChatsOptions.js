@@ -37,6 +37,7 @@ const AllChatsOptions = (props) => {
                         icon={<ChatIcon />}
                         key={doc}
                         onClickNavigateTo={`/chat?chatter=${userUIDs[++i]}`}
+                        isActive={true}
                     />
                 ))
             );
