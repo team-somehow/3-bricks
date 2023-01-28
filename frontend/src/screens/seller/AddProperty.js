@@ -31,6 +31,17 @@ const names = [
     "theatre",
 ];
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
 const AddProperty = () => {
     const user = auth.currentUser;
     const navigate = useNavigate();
@@ -297,31 +308,31 @@ const AddProperty = () => {
                         renderOption={(props, option) => (
                             <li {...props}>{option.title}</li>
                         )}
-                        sx={{ width: 300 }}
+                        sx={{}}
                         freeSolo
                         renderInput={(params) => (
-                            <TextField {...params} label="Type of Property" />
+                            <TextField
+                                {...params}
+                                label="Type of Property"
+                                required
+                            />
                         )}
                     />
-                    {/* <TextField
-                        fullWidth
-                        placeholder="Amenities"
-                        onChange={(e) => setAmenities(e.target.value)}
-                    /> */}
-                    <FormControl sx={{ m: 1, width: 550 }}>
+                    <FormControl fullWidth sx={{}}>
+                        <InputLabel id="demo-multiple-chip-label">
+                            Amenities
+                        </InputLabel>
                         <Select
-                            // labelId=""
                             required
-                            label="Amenities"
+                            labelId="demo-multiple-chip-label"
                             id="demo-multiple-chip"
                             multiple
                             value={amenities}
-                            variant="outlined"
                             onChange={handleChange}
                             input={
                                 <OutlinedInput
                                     id="select-multiple-chip"
-                                    label="Chip"
+                                    label="Amenities"
                                 />
                             }
                             renderValue={(selected) => (
@@ -337,7 +348,7 @@ const AddProperty = () => {
                                     ))}
                                 </Box>
                             )}
-                            // MenuProps={MenuProps}
+                            MenuProps={MenuProps}
                         >
                             {names.map((name) => (
                                 <MenuItem
