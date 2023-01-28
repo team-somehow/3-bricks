@@ -1,19 +1,25 @@
-require("@nomicfoundation/hardhat-toolbox");
+// We require the Hardhat Runtime Environment explicitly here. This is optional
+// but useful for running the script in a standalone fashion through `node <script>`.
+//
+// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
+// will compile your contracts, add the Hardhat Runtime Environment's members to the
+// global scope, and execute the script.
+const hre = require("hardhat");
 
-const dotenv = require("dotenv");
-dotenv.config({ path: __dirname + "/.env" });
-const { ALCHEMY_URL, MATIC_PRIVATE_KEY } = process.env;
+async function main() {
+    // We get the contract to deploy
+    const ThreeBricks = await hre.ethers.getContractFactory("ThreeBricks");
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-    solidity: "0.8.17",
-    networks: {
-        mumbai: {
-            url: "https://polygon-mumbai.g.alchemy.com/v2/" + ALCHEMY_URL,
-            accounts: [`0x${MATIC_PRIVATE_KEY}`],
-        },
-    },
-    paths: {
-        artifacts: "../frontend/src/artifacts",
-    },
-};
+    const threeBricks = await ThreeBricks.deploy();
+
+    await threeBricks.deployed();
+
+    console.log("ThreeBricks deployed to:", threeBricks.address);
+}
+
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});

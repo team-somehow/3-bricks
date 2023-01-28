@@ -4,7 +4,7 @@ import BigNumber from "bignumber.js";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { contractAddress } from "../../constants";
-import NFTMinter from "../../artifacts/contracts/NFTMinter.sol/NFTMinter.json";
+import ThreeBricks from "../../artifacts/contracts/ThreeBricks.sol/ThreeBricks.json";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 
 import { db } from "../../config/firebase";
@@ -14,7 +14,7 @@ const provider = new providers.Web3Provider(window.ethereum);
 // get the end user
 const signer = provider.getSigner();
 // get the smart contract
-const contract = new Contract(contractAddress, NFTMinter.abi, signer);
+const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
 
 const ListingSellerItem = (props) => {
     const {

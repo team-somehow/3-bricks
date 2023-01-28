@@ -7,14 +7,14 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { auth, db } from "../../config/firebase";
 import { providers, Contract, utils } from "ethers";
 import { contractAddress } from "../../constants";
-import NFTMinter from "../../artifacts/contracts/NFTMinter.sol/NFTMinter.json";
+import ThreeBricks from "../../artifacts/contracts/ThreeBricks.sol/ThreeBricks.json";
 import { doc, updateDoc } from "firebase/firestore";
 
 const provider = new providers.Web3Provider(window.ethereum);
 // get the end user
 const signer = provider.getSigner();
 // get the smart contract
-const contract = new Contract(contractAddress, NFTMinter.abi, signer);
+const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
 
 const ListingItem = (props) => {
     // const navigate = useNavigate();

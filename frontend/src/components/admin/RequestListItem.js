@@ -8,7 +8,7 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import { providers, Contract } from "ethers";
 import { contractAddress } from "../../constants";
 
-import NFTMinter from "../../artifacts/contracts/NFTMinter.sol/NFTMinter.json";
+import ThreeBricks from "../../artifacts/contracts/ThreeBricks.sol/ThreeBricks.json";
 import { pinFileToIPFS } from "../../utils/pinFileToIPFS";
 import CustomizedDialogs from "./DialogBox";
 
@@ -16,7 +16,7 @@ const provider = new providers.Web3Provider(window.ethereum);
 // get the end user
 const signer = provider.getSigner();
 // get the smart contract
-const contract = new Contract(contractAddress, NFTMinter.abi, signer);
+const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
 
 const RequestListItem = (props) => {
     const [expand, setExpand] = useState(false);
