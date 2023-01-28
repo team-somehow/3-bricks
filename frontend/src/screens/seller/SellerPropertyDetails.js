@@ -5,7 +5,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import ListingSellerItem from "../../components/property/ListingSellerItem";
 
-
 function SellerPropertyDetails() {
     const [data, setData] = useState([]);
 
@@ -30,17 +29,19 @@ function SellerPropertyDetails() {
 
     return (
         <Box m={5}>
-            <Box 
-            sx={{
+            <Box
+                sx={{
                     width: "70vw",
                     textAlign: "center",
                     borderRadius: "8px",
                     paddingY: "2px",
                     backgroundColor: "white",
-                }}>
+                }}
+            >
                 <Typography variant="h2">My Property Listings</Typography>
             </Box>
-            <Box width={"76vw"}
+            <Box
+                width={"76vw"}
                 sx={{
                     display: "grid",
                     marginTop: "30px",
@@ -48,8 +49,9 @@ function SellerPropertyDetails() {
                     // gridGap: "10px",
                     gridTemplateColumns: "1fr 1fr 1fr",
                     // paddingX:"3%",
-                    marginLeft: "-30px"
-                }}>
+                    marginLeft: "-30px",
+                }}
+            >
                 {data.map((item) => (
                     <ListingSellerItem key={item.id} {...item} />
                 ))}

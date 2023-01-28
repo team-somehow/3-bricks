@@ -37,8 +37,16 @@ const RequestListItem = (props) => {
             const walletAddressOfPropertyOwner = item.sellerWalletAddress;
 
             // get image Blob
-            const fetchTitleDeedURL = await fetch(titleDeedFileURL);
-            const imageBlob = await fetchTitleDeedURL.blob();
+            let imageBlob;
+            try {
+                const fetchTitleDeedURL = await fetch(titleDeedFileURL);
+                imageBlob = await fetchTitleDeedURL.blob();
+            } catch (e) {
+                console.log(e);
+                setLoading(false);
+                setError(JSON.stringify(e));
+                return;
+            }
 
             // pass image blob to pinata
             const pinataResponse = await pinFileToIPFS(imageBlob, propertyId);
@@ -104,6 +112,12 @@ const RequestListItem = (props) => {
                 setOpen={setModal}
                 stepCount={stepCount}
                 error={error}
+                steps={[
+                    "Uploading Title Deed to IPFS",
+                    "Transacting with 3 Bricks smart contract",
+                    "Minting NFT",
+                    "Success",
+                ]}
             />
             <Box
                 sx={{

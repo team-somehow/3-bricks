@@ -8,33 +8,33 @@ import router from "./config/router";
 import { SnackbarProvider } from "notistack";
 
 function App() {
-	const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		auth.onAuthStateChanged((user) => {
-			if (user) {
-				console.info("User detected.");
-			} else {
-				console.info("No user detected");
-			}
-			setLoading(false);
-		});
-	}, []);
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.info("User detected.");
+            } else {
+                console.info("No user detected");
+            }
+            setLoading(false);
+        });
+    }, []);
 
-	if (loading)
-		return (
-			<Center>
-				<CircularProgress />
-			</Center>
-		);
+    if (loading)
+        return (
+            <Center>
+                <CircularProgress />
+            </Center>
+        );
 
-	return (
-		<div>
-			<SnackbarProvider>
-				<RouterProvider router={router} />
-			</SnackbarProvider>
-		</div>
-	);
+    return (
+        <div>
+            <SnackbarProvider>
+                <RouterProvider router={router} />
+            </SnackbarProvider>
+        </div>
+    );
 }
 
 export default App;
