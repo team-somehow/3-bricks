@@ -133,7 +133,7 @@ const Home = (props) => {
                 reverse={true}
             />
             <SpecialPointSection
-                heading="Security Features:"
+                heading="Security Features"
                 backgroundColor="#fdf9fb"
                 pointsList={[
                     "Secure storage of property ownership records using the immutability and cryptographic features of the blockchain",
@@ -144,7 +144,7 @@ const Home = (props) => {
             />
             <SpecialPointSection
                 backgroundColor="#fefbef"
-                heading="Powered by Polygon:"
+                heading="Powered by Polygon"
                 pointsList={[
                     "Accurate identification and verification of property ownership",
                     "Reduced time and cost for property ownership transfer and related processes",
