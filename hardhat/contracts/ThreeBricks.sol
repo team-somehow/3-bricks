@@ -57,14 +57,15 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
 
     // NFT owner can create listing
     function createPropertyListing(uint256 tokenId, uint256 _propertyPrice, uint256 _downPayment) public {
+        // console.log("property",_downPayment);
         require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can create listing");
-        propertyPrice[tokenId] = _propertyPrice * 10 ** 18;
-        downPayment[tokenId] = _downPayment * 10 ** 18;
+        propertyPrice[tokenId] = _propertyPrice;
+        downPayment[tokenId] = _downPayment;
 
-        // console.log("propertyPrice[tokenId]");
-        // console.log(propertyPrice[tokenId]);
-        // console.log("downPayment[tokenId]");
-        // console.log(downPayment[tokenId]);
+        console.log("propertyPrice[tokenId]");
+        console.log(propertyPrice[tokenId]);
+        console.log("downPayment[tokenId]");
+        console.log(downPayment[tokenId]);
 
         address addr = msg.sender;
         address payable wallet = payable(addr);
@@ -74,8 +75,13 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     
     // buyer can make down payment
     function makeDownPayment(uint256 tokenId, address payable userPayableAddress) public payable {
-        require( msg.value >= downPayment[tokenId], "please deposit correct amount");
-        buyerAddressToDownPayment[msg.sender] += msg.value;
+        // console.log( "fdsdsff");
+        // console.log( msg.value);
+        // console.log( downPayment[tokenId]);
+        // require( msg.value >= downPayment[tokenId], "please deposit correct amount");
+        // console.log(msg.value);
+        // console.log(userPayableAddress);
+        // buyerAddressToDownPayment[msg.sender] = msg.value;
         buyerAddressToBuyerPayableAddress[msg.sender] = userPayableAddress;
 
         // Retrieve the current array of buyers for the given token ID
@@ -85,28 +91,28 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         // Update the mapping with the new array of buyers
         tokenIdToBuyerAddress[tokenId] = currentBuyers;
 
-        // console.log("buyerAddressToDownPayment[msg.sender]");
-        // console.log(buyerAddressToDownPayment[msg.sender]);
-        // console.log("buyerAddressToBuyerPayableAddress[msg.sender]");
-        // console.log(buyerAddressToBuyerPayableAddress[msg.sender]);
+        console.log("buyerAddressToDownPayment[msg.sender]");
+        console.log(buyerAddressToDownPayment[msg.sender]);
+        console.log("buyerAddressToBuyerPayableAddress[msg.sender]");
+        console.log(buyerAddressToBuyerPayableAddress[msg.sender]);
     }
 
     function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable  {
         address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
         uint256 transferAmt = downPayment[tokenId];
 
-        // console.log("buyerPayableAddress");
-        // console.log(buyerPayableAddress);
-        // console.log("transferAmt");
-        // console.log(transferAmt);
+        console.log("buyerPayableAddress");
+        console.log(buyerPayableAddress);
+        console.log("transferAmt");
+        console.log(transferAmt);
 
-// console.log(address(this).balance);
-// console.log(address(buyerPayableAddress).balance);
+console.log(address(this).balance);
+console.log(address(buyerPayableAddress).balance);
 
         payable(buyerPayableAddress).transfer(transferAmt);
 
-// console.log(address(this).balance);
-// console.log(address(buyerPayableAddress).balance);
+console.log(address(this).balance);
+console.log(address(buyerPayableAddress).balance);
 
     }
 
@@ -126,7 +132,7 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
         for (uint256 i = 0; i < buyerAddresses.length; i++) {
             if (buyerAddresses[i] != chosenBuyer) {
-            // console.log("for loop");
+            console.log("for loop");
 
                 releaseDownPayment(tokenId, address(buyerAddresses[i]));
             }
