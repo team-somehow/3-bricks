@@ -67,15 +67,15 @@ function SpecialPointSection({
                 </Typography>
             </Box>
             <Box
-                width={isOnlyImage ? "100%" : "50%"}
+                width={"50%"}
                 display={"flex"}
                 alignItems={"center"}
                 justifyContent={"center"}
                 data-aos="zoom-in-up"
                 data-aos-duration={1000}
-                p={2}
+                p={1}
             >
-                <img src={imageUrl} width={"100%"} />
+                <img src={imageUrl} style={{ margin: "auto" }} />
             </Box>
         </Box>
     );
