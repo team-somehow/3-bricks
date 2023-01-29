@@ -41,7 +41,7 @@ function SpecialPointSection({
                     align="center"
                     color={"#348FF9"}
                     letterSpacing={"2px"}
-                    my={4}
+                    my={8}
                     data-aos="zoom-in"
                     data-aos-duration={500}
                 >

@@ -107,18 +107,20 @@ const Home = (props) => {
                     imageUrl={problemsImg}
                 />
             </Box>
-            {/* <SpecialPointSection
-                backgroundColor="#F3F3F3"
-                heading="Property Selection Process"
-                imageUrl={"/assets/property_selection.svg"}
-                isOnlyImage
-            />
+            <Box marginTop={14} bgcolor={"#eef5f8"}>
+                <SpecialPointSection
+                    backgroundColor="#eef5f8"
+                    heading="Property Selection Process"
+                    imageUrl={"/assets/property_selection.svg"}
+                    isOnlyImage
+                />
+            </Box>
             <SpecialPointSection
-                backgroundColor="#F3F3F3"
+                backgroundColor="#fdf9fb"
                 heading="Property Selling Process"
                 imageUrl={"/assets/property_selling.svg"}
                 isOnlyImage
-            /> */}
+            />
             <SpecialPointSection
                 heading="Industrial Applications"
                 backgroundColor="#eef5f8"
