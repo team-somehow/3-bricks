@@ -106,7 +106,6 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
         for (uint256 i = 0; i < buyerAddresses.length; i++) {
             if (buyerAddresses[i] != chosenBuyer) {
-                // releaseDownPayment(tokenId, address(buyerAddresses[i]));
                 address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[address(buyerAddresses[i])];
                 uint256 transferAmt = downPayment[tokenId];
                 payable(buyerPayableAddress).transfer(transferAmt);

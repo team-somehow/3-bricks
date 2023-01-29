@@ -59,8 +59,8 @@ const ListingSellerItem = (props) => {
         setOpen(true);
 
         // take these values
-        const depositAmt = ethers.utils.parseUnits(token.toString(), 18);
-        const sellingPrice = ethers.utils.parseUnits(price.toString(), 18);
+        const depositAmt = token;
+        const sellingPrice = price;
 
         // get these values from firebase
         const tokenIdOfThisProperty = tokenID;
