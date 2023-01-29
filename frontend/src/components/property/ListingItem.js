@@ -50,7 +50,7 @@ const ListingItem = (props) => {
                 >
                     <Typography
                         variant="h4"
-                        fontSize={"36px"}
+                        fontSize={"26px"}
                         color="rgb(52, 143, 249)"
                         textTransform="uppercase"
                         letterSpacing={"1px"}
@@ -61,23 +61,23 @@ const ListingItem = (props) => {
                     >
                         {name}
                     </Typography>
-                    <Typography
-                        variant="h6"
-                        sx={{ marginBottom: "14px" }}
-                        style={{ display: "flex", alignItems: "center" }}
-                    >
-                        <img
-                            src="/assets/location.png"
-                            width={"30px"}
-                            style={{ marginRight: "6px" }}
-                        />
-                        {city}
+                    <Typography variant="h6" fontSize={14} mx={1}>
+                        {propertyType}
                     </Typography>
                 </Box>
-                <Typography variant="h6" fontSize={16} mx={1}>
-                    {propertyType}
-                </Typography>
 
+                <Typography
+                    variant="h6"
+                    sx={{ marginBottom: "14px" }}
+                    style={{ display: "flex", alignItems: "center" }}
+                >
+                    <img
+                        src="/assets/location.png"
+                        width={"30px"}
+                        style={{ marginRight: "6px" }}
+                    />
+                    {city}
+                </Typography>
                 <Typography
                     variant="h5"
                     sx={{ marginBottom: "6px" }}
