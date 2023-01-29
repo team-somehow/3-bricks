@@ -70,7 +70,7 @@ const MyProperties = () => {
                     height: "9vh",
                 }}
             >
-                <Typography variant="h5">My Properties</Typography>
+                <Typography variant="h4">My Properties</Typography>
             </Box>
             <SearchInput updateProperties={updateProperties} />
             <Box
@@ -80,7 +80,7 @@ const MyProperties = () => {
                     marginTop: "30px",
                     gridColumn: "3",
                     gridTemplateColumns: "1fr 1fr 1fr",
-                    marginLeft: "-25px",
+                    // marginLeft: "-25px",
                 }}
             >
                 {data.map((item) => (

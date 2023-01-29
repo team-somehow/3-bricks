@@ -87,7 +87,7 @@ function AllChats() {
                     height: "9vh",
                 }}
             >
-                <Typography variant="h5">Messages</Typography>
+                <Typography variant="h4">Messages</Typography>
             </Box>
         </Box>
         <DashboardNavbar />

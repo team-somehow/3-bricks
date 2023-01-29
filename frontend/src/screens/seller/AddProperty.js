@@ -216,6 +216,7 @@ const AddProperty = () => {
                     position: "fixed",
                     alignItems: "center",
                 }}
+                className="awesome-bg-0"
             >
                 <Typography variant="h4" sx={{}}>
                     List A Property

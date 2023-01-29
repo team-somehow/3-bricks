@@ -150,7 +150,7 @@ const Chat = (props) => {
                             flexDirection: "row",
                             gap: "2%",
                             marginTop: "8.5%",
-                            width: "56%",
+                            width: "58%",
                             position: "fixed",
                             backgroundColor: "#F6F7FF"
                         }}

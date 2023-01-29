@@ -33,13 +33,13 @@ function SellerPropertyDetails() {
             <Box
                 component={Paper}
                 sx={{
-                    width: "100%",
+                    width: "95%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
-                    padding: "2%",
+                    paddingTop: "12px",
                     backgroundColor: "white",
-                    marginBottom: "4.5vh",
-                    height: "10vh",
+                    // marginBottom: "4.5vh",
+                    height: "9vh",
                 }}
             >
                 <Typography variant="h4">My Property Listings</Typography>
