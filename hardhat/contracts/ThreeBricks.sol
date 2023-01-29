@@ -25,9 +25,6 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     mapping(uint256 => address[]) public tokenIdToBuyerAddress;
     mapping(address => uint256) public buyerAddressToDownPayment;
     mapping(address => address payable) public buyerAddressToBuyerPayableAddress;
-    
-    // to maintain seller address
-    mapping(uint256 => address payable) public tokenIdToSellerPayableAddress;
 
 
     function mintNFT(address recipient, string memory ipfsTitleDeedURI, string memory propertyId) public onlyOwner returns (uint256) {
@@ -58,36 +55,21 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     // NFT owner can create listing
     function createPropertyListing(uint256 tokenId, uint256 _propertyPrice, uint256 _downPayment) public {
         require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can create listing");
-        propertyPrice[tokenId] = _propertyPrice  * 10 **18;
-        downPayment[tokenId] = _downPayment * 10 **18;
-
-
-        address addr = msg.sender;
-        address payable wallet = payable(addr);
-
-        tokenIdToSellerPayableAddress[tokenId] = wallet;
+        propertyPrice[tokenId] = _propertyPrice;
+        downPayment[tokenId] = _downPayment;
     }
     
     // buyer can make down payment
     function makeDownPayment(uint256 tokenId, address payable userPayableAddress) public payable {
-        // require( msg.value >= downPayment[tokenId], "please deposit correct amount");
-        
-        // buyerAddressToDownPayment[msg.sender] = msg.value;
+        require( msg.value >= downPayment[tokenId], "please deposit correct amount");
+        buyerAddressToDownPayment[msg.sender] += msg.value;
         buyerAddressToBuyerPayableAddress[msg.sender] = userPayableAddress;
-
-        // Retrieve the current array of buyers for the given token ID
-        address[] storage currentBuyers = tokenIdToBuyerAddress[tokenId];
-        // Append the new buyer to the array
-        currentBuyers.push(userPayableAddress);
-        // Update the mapping with the new array of buyers
-        tokenIdToBuyerAddress[tokenId] = currentBuyers;
-
     }
 
-    function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable  {
-        // address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
-        // uint256 transferAmt = downPayment[tokenId];
-        // payable(buyerPayableAddress).transfer(transferAmt);
+    function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable onlyOwner {
+        address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
+        uint256 transferAmt = downPayment[tokenId];
+        buyerPayableAddress.transfer(transferAmt);
     }
 
     // helper
@@ -96,7 +78,7 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     }
 
      // start escrow
-    function NFTOwnerStartEscrow(uint256 tokenId, address chosenBuyer) public payable {
+    function NFTOwnerStartEscrow(uint256 tokenId, address chosenBuyer) public {
         require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can start escrow process");
 
         // Transfer NFT from seller to this contract
@@ -106,23 +88,17 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
         for (uint256 i = 0; i < buyerAddresses.length; i++) {
             if (buyerAddresses[i] != chosenBuyer) {
-                address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[address(buyerAddresses[i])];
-                uint256 transferAmt = downPayment[tokenId];
-                payable(buyerPayableAddress).transfer(transferAmt);
+                releaseDownPayment(tokenId, address(buyerAddresses[i]));
             }
         }
 
     }
 
     function completePaymentAndEsrow(uint256 tokenId) public payable {
-        // require( msg.value >= propertyPrice[tokenId] - downPayment[tokenId], "please pay correct amount");
+        require( msg.value >= propertyPrice[tokenId] - downPayment[tokenId], "please pay correct amount");
 
         // transfer NFT to seller
         tranfer(address(this), msg.sender, tokenId);
-
-        address payable sellerPayableAddress = tokenIdToSellerPayableAddress[tokenId];
-        uint256 transferAmt = propertyPrice[tokenId];
-        sellerPayableAddress.transfer(transferAmt);
     }
 
     // util override 
