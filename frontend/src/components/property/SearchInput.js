@@ -15,7 +15,7 @@ export default function SearchInput({ updateProperties }) {
                 p: "2px 6px",
                 display: "flex",
                 alignItems: "center",
-                width: "80%",
+                width: "100%",
                 my: "24px",
                 background: "#FFFFFF",
                 boxShadow: "0px 20px 70px rgba(86, 138, 146, 0.1)",

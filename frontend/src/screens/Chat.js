@@ -162,6 +162,9 @@ const Chat = (props) => {
                                 setMessage(e.target.value);
                             }}
                             placeholder="Enter Message Here"
+                            onKeyDown = {(e) => {
+                                if (e.key === "Enter") handleSend();
+                            }}
                         ></TextField>
                         <Button variant="contained" onClick={handleSend}>
                             <SendIcon />
