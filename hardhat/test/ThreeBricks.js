@@ -14,7 +14,7 @@ describe("ThreeBricks", function () {
 
     before(async function () {
         // use ethers to get our contract
-        const ThreeBricks = await ethers.getContractFactory("ThreeBricks");
+        const ThreeBricks = await ethers.getContractFactory("ThreeBricks1");
         // and deploy it
         threeBricks = await ThreeBricks.deploy();
         await threeBricks.deployed();
@@ -85,18 +85,24 @@ describe("ThreeBricks", function () {
     });
 
     it("Buyer2 accepted by seller, Buyer1's down payment refunded, escrow process begins", async () => {
-        console.log("buyer1 start", (await buyer1.getBalance()) / 10 ** 18);
+        console.log(
+            "buyer1 after down payment",
+            (await buyer1.getBalance()) / 10 ** 18
+        );
 
         await threeBricks
             .connect(seller)
             .NFTOwnerStartEscrow(tokenId, buyer2.address);
-        console.log("buyer1 start", (await buyer1.getBalance()) / 10 ** 18);
     });
 
     it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {
         await threeBricks.connect(buyer1).completePaymentAndEsrow(tokenId, {
             value: ethers.utils.parseEther(propertyPrice.toString()),
         });
+        console.log(
+            "buyer1 after final payment",
+            (await buyer1.getBalance()) / 10 ** 18
+        );
         console.log("seller end", (await seller.getBalance()) / 10 ** 18);
     });
 });
