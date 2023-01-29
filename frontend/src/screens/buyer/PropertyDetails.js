@@ -211,7 +211,7 @@ const PropertyDetails = () => {
                                         variant="contained"
                                         onClick={makeDeposit}
                                         disabled={loading}
-                                        sx={{ marginX: 4 }}
+                                        sx={{ marginRight: 4 }}
                                     >
                                         Request Purchase
                                     </Button>
@@ -221,7 +221,6 @@ const PropertyDetails = () => {
                                 variant="outlined"
                                 component={Link}
                                 to={`/chat?chatter=${ownerId}`}
-                                sx={{ marginX: 4 }}
                             >
                                 Chat with Owner
                             </Button>
