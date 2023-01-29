@@ -35,14 +35,11 @@ const ListingItem = (props) => {
         // get these values from firebase
         const remainingAmountFromFb = price - downPaymentPrice;
         const tokenIdOfThisProperty = tokenID;
-
+        console.log(price, downPaymentPrice);
         if (window.ethereum) {
             await window.ethereum.enable();
 
-            const amountInWei = utils.parseUnits(
-                remainingAmountFromFb.toString(),
-                18
-            );
+            const amountInWei = utils.parseUnits(price.toString(), 18);
 
             // call the pay to mint method on the smart contract
             const result = await contract.completePaymentAndEsrow(

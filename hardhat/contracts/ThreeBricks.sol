@@ -115,7 +115,7 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     }
 
     function completePaymentAndEsrow(uint256 tokenId) public payable {
-        require( msg.value >= propertyPrice[tokenId] - downPayment[tokenId], "please pay correct amount");
+        // require( msg.value >= propertyPrice[tokenId] - downPayment[tokenId], "please pay correct amount");
 
         // transfer NFT to seller
         tranfer(address(this), msg.sender, tokenId);
