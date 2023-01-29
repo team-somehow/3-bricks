@@ -74,7 +74,7 @@ function SpecialPointSection({
                 data-aos="zoom-in-up"
                 data-aos-duration={1000}
             >
-                <img src={imageUrl} />
+                <img src={imageUrl} style={{ margin: "0 20px" }} />
             </Box>
         </Box>
     );
