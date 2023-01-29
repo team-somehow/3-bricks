@@ -100,19 +100,36 @@ const Home = (props) => {
                     />
                 </Box>
             </Box>
-            <Box marginTop={11}>
+            <Box marginTop={11} paddingTop={"10px"}>
                 <SpecialPointSection
-                    heading="Industrial Applications"
-                    backgroundColor="#eef5f8"
-                    pointsList={[
-                        "Streamlined and automated property ownership transfer process using NFTs and smart contracts",
-                        "Increased transparency and security through the use of the blockchain for property ownership records",
-                    ]}
-                    imageUrl="https://media2.giphy.com/media/U22HxRRRXQDHrRwxz7/giphy.gif?cid=790b761128ae72216af0c92cd2b5d03ec12e4192a263eb3a&rid=giphy.gif&ct=s"
-                    // imageUrl="https://media1.giphy.com/media/4E5RAy2GhY4Lc84IMi/giphy.gif?cid=ecf05e47yw86f3c7su5uqmkrmz29jt4rq985bsroevfip1b9&rid=giphy.gif&ct=s"
-                    reverse={true}
+                    heading="What problems are we solving?"
+                    isOnlyImage={true}
+                    imageUrl={problemsImg}
                 />
             </Box>
+            {/* <SpecialPointSection
+                    backgroundColor="#F3F3F3"
+                    heading="Property Selection Process"
+                    imageUrl={"/assets/property_selection.svg"}
+                    isOnlyImage
+                />
+                <SpecialPointSection
+                    backgroundColor="#F3F3F3"
+                    heading="Property Selling Process"
+                    imageUrl={"/assets/property_selling.svg"}
+                    isOnlyImage
+                /> */}
+            <SpecialPointSection
+                heading="Industrial Applications"
+                backgroundColor="#eef5f8"
+                pointsList={[
+                    "Streamlined and automated property ownership transfer process using NFTs and smart contracts",
+                    "Increased transparency and security through the use of the blockchain for property ownership records",
+                ]}
+                imageUrl="https://media2.giphy.com/media/U22HxRRRXQDHrRwxz7/giphy.gif?cid=790b761128ae72216af0c92cd2b5d03ec12e4192a263eb3a&rid=giphy.gif&ct=s"
+                // imageUrl="https://media1.giphy.com/media/4E5RAy2GhY4Lc84IMi/giphy.gif?cid=ecf05e47yw86f3c7su5uqmkrmz29jt4rq985bsroevfip1b9&rid=giphy.gif&ct=s"
+                reverse={true}
+            />
             <SpecialPointSection
                 heading="Security Features:"
                 backgroundColor="#fdf9fb"
@@ -133,13 +150,6 @@ const Home = (props) => {
                 imageUrl={polygon}
                 reverse={true}
             />
-            <Box paddingTop={2} bgcolor={"white"}>
-                <SpecialPointSection
-                    heading="What problems are we solving?"
-                    isOnlyImage={true}
-                    imageUrl={problemsImg}
-                />
-            </Box>
             <Box height={"10vh"}></Box>
         </>
     );
