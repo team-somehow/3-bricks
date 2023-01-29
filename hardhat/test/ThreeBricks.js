@@ -60,20 +60,21 @@ describe("ThreeBricks", function () {
     });
 
     it("Seller creates listing for their approved property", async function () {
+        console.log("seller start",(await seller.getBalance())/10**18)
+
+        console.log("buyer1 start",(await buyer1.getBalance())/10**18)
         await threeBricks
             .connect(seller)
             .createPropertyListing(tokenId, propertyPrice, downPayment);
     });
 
     it("Buyer1 makes down payment to the smart contract", async () => {
-        console.log(await buyer1.getBalance());
 
         await threeBricks
             .connect(buyer1)
             .makeDownPayment(tokenId, buyer1.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
             });
-        console.log(await buyer1.getBalance());
     });
 
     it("Buyer2 makes down payment to the smart contract", async () => {
@@ -85,15 +86,20 @@ describe("ThreeBricks", function () {
     });
 
     it("Buyer2 accepted by seller, Buyer1's down payment refunded, escrow process begins", async () => {
+        console.log("buyer1 start",(await buyer1.getBalance())/10**18)
+
         await threeBricks
             .connect(seller)
             .NFTOwnerStartEscrow(tokenId, buyer2.address);
-        console.log(await buyer1.getBalance());
+        console.log("buyer1 start",(await buyer1.getBalance())/10**18)
+
     });
 
     it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {
         await threeBricks.connect(buyer1).completePaymentAndEsrow(tokenId, {
             value: ethers.utils.parseEther(propertyPrice.toString()),
         });
+        console.log("seller end",(await seller.getBalance())/10**18)
+
     });
 });
