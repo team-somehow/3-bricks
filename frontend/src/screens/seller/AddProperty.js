@@ -205,24 +205,28 @@ const AddProperty = () => {
             <Box
                 component={Paper}
                 sx={{
-                    width: "70%",
+                    // height: "10vh",
+                    marginTop: 5,
+                    marginLeft: 3,
+                    marginRight: 5,
+                    // position: "fixed",
+                    // alignItems: "center",
+
+                    width: "95%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
-                    padding: "1.5%",
-                    // backgroundColor: "white",
+                    paddingTop: "12px",
+                    backgroundColor: "white",
                     // marginBottom: "4.5vh",
-                    height: "10vh",
-                    m: 5,
-                    position: "fixed",
-                    alignItems: "center",
+                    height: "9vh",
                 }}
-                className="awesome-bg-0"
+                // className="awesome-bg-0"
             >
-                <Typography variant="h4" sx={{}}>
+                <Typography variant="h4">
                     List A Property
                 </Typography>
             </Box>
-            <Box p={5} display="flex" mt={"17vh"}>
+            <Box p={5} display="flex" mt={"10vh"}>
                 <Box width={"100%"} mr={10}>
                     <Box display={errorMessage ? "block" : "none"}>
                         <Alert
