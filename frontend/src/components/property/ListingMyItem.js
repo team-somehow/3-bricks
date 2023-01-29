@@ -35,7 +35,7 @@ const ListingItem = (props) => {
         // get these values from firebase
         const remainingAmountFromFb = price - downPaymentPrice;
         const tokenIdOfThisProperty = tokenID;
-
+        console.log(price, downPaymentPrice);
         if (window.ethereum) {
             await window.ethereum.enable();
 
