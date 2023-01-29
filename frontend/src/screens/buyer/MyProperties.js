@@ -57,20 +57,20 @@ const MyProperties = () => {
             );
     };
     return (
-        <Box m={5}>
+        <Box m={2} style={{marginTop: "3%"}}>
             <Box
                 component={Paper}
                 sx={{
-                    width: "100%",
+                    width: "95%",
                     textAlign: "center",
                     borderRadius: "0.5vw",
-                    padding: "1.4%",
+                    paddingTop: "12px",
                     backgroundColor: "white",
-                    marginBottom: "4.5vh",
-                    height: "10vh",
+                    // marginBottom: "4.5vh",
+                    height: "9vh",
                 }}
             >
-                <Typography variant="h4">My Properties</Typography>
+                <Typography variant="h5">My Properties</Typography>
             </Box>
             <SearchInput updateProperties={updateProperties} />
             <Box

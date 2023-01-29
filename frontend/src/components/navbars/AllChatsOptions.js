@@ -52,15 +52,17 @@ const AllChatsOptions = (props) => {
     return (
         <Drawer
             sx={{
-                width: 350,
+                width: 240,
                 flexShrink: 0,
                 border: "none",
                 "& .MuiDrawer-paper": {
-                    marginLeft: "350px",
+                    marginLeft: "300px",
                     marginTop: "4%",
-                    width: 280,
+                    width: 240,
                     boxSizing: "border-box",
-                    background: "rgba(252, 254, 254, 0.43)",
+                    // background: "rgba(252, 254, 254, 0.43)",
+
+                    background: "rgba(255, 0, 0, 0.85)",
                     backdropFilter: "blur(25px)",
                 },
             }}
@@ -73,7 +75,7 @@ const AllChatsOptions = (props) => {
                     <div
                         style={{
                             paddingLeft: "18px",
-                            marginTop: "5px",
+                            marginTop: "-8px",
                             marginBottom: "28px",
                             paddingTop: "20%",
                             cursor: "pointer",

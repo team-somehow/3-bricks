@@ -11,7 +11,6 @@ import ThreeBricks from "../../artifacts/contracts/ThreeBricks.sol/ThreeBricks.j
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import { useSnackbar } from "notistack";
-import CustomizedDialogs from "../../components/admin/DialogBox";
 
 const provider = new providers.Web3Provider(window.ethereum);
 // get the end user
@@ -23,10 +22,6 @@ const PropertyDetails = () => {
     const { propertyID } = useParams();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
-    const [stepCount, setStepCount] = useState(0);
-    const [err, setErr] = useState(null);
-    const [modal, setModal] = useState(false);
-
     const {
         id,
         name,
@@ -75,7 +70,6 @@ const PropertyDetails = () => {
     }, [purchaseRequests]);
 
     const makeDeposit = async () => {
-        setModal(true);
         const tokenId = data.tokenID;
         const downPayment = data.downPaymentPrice;
         console.log(tokenId, downPayment);
@@ -89,7 +83,7 @@ const PropertyDetails = () => {
             await window.ethereum.enable();
             // Convert the amount to wei
             const amountInWei = utils.parseUnits(downPayment.toString(), 18);
-            setStepCount((prev) => prev + 1);
+
             if (window.ethereum) {
                 await window.ethereum.enable();
 
@@ -102,7 +96,6 @@ const PropertyDetails = () => {
                 );
 
                 result.wait();
-                setStepCount((prev) => prev + 1);
 
                 const propertyRef = doc(db, "ListedProperties", id);
 
@@ -115,11 +108,13 @@ const PropertyDetails = () => {
                     }),
                 });
 
-                setStepCount((prev) => prev + 1);
+                enqueueSnackbar("Purchase Made", {
+                    variant: "success",
+                });
 
                 setAllowRequestPurchase(false);
 
-                console.log("result", result);
+                // console.log("result", result);
             }
         }
     };
@@ -140,7 +135,7 @@ const PropertyDetails = () => {
     ) {
         return (
             <Box p={5} display="flex">
-                <Typography variant="h3">
+                <Typography variant="h2">
                     Property listing does not exist OR is already sold
                 </Typography>
             </Box>
@@ -148,145 +143,128 @@ const PropertyDetails = () => {
     }
 
     return (
-        <>
-            <CustomizedDialogs
-                steps={[
-                    "Calculating Down payment",
-                    "Connecting Smart contract",
-                    "Waiting for reponse",
-                    "Success",
-                ]}
-                stepCount={stepCount}
-                open={modal}
-                setOpen={setModal}
-                error={err}
-            />
-            <Box
-                p={5}
-                display="flex"
-                flexDirection={"row-reverse"}
-                justifyContent="space-between"
-                width={"80vw"}
-            >
-                {loading && <Typography variant="h2">Loading...</Typography>}
-                {!loading && (
-                    <>
-                        <Box width={"30%"}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "flex-start",
-                                    alignItems: "center",
-                                    gap: "10vh",
-                                }}
-                            >
-                                <Box>
-                                    <img
-                                        width={"300px"}
-                                        height={"200px"}
-                                        style={{
-                                            objectFit: "contain",
-                                        }}
-                                        src={images[0]}
-                                        alt={name}
-                                    />
-                                </Box>
-                                <Box
-                                    component={Paper}
-                                    sx={{
-                                        padding: "4%",
-                                        borderRadius: "0.5vw",
-                                    }}
-                                >
-                                    <img
-                                        width={"300px"}
-                                        height={"200px"}
-                                        src={map_image}
-                                        alt="map"
-                                    />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box mx={10}>
-                            <Typography variant="h1" my={4}>
-                                {name}
-                            </Typography>
-
-                            <Typography variant="h4" my={4}>
-                                Matic.{price}
-                            </Typography>
+        <Box
+            p={5}
+            display="flex"
+            flexDirection={"row-reverse"}
+            justifyContent="space-between"
+            width={"80vw"}
+        >
+            {loading && <Typography variant="h2">Loading...</Typography>}
+            {!loading && (
+                <>
+                    <Box width={"30%"}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                gap: "10vh",
+                            }}
+                        >
                             <Box>
-                                {ownerId === auth.currentUser.uid && (
-                                    <Typography>
-                                        You already own this property
-                                    </Typography>
-                                )}
-
-                                {ownerId !== auth.currentUser.uid &&
-                                    allowRequestPurchase && (
-                                        <Button
-                                            variant="contained"
-                                            onClick={makeDeposit}
-                                            disabled={loading}
-                                            sx={{ marginRight: 4 }}
-                                        >
-                                            Request Purchase
-                                        </Button>
-                                    )}
-                                {ownerId !== auth.currentUser.uid && (
-                                    <Button
-                                        variant="outlined"
-                                        component={Link}
-                                        to={`/chat?chatter=${ownerId}`}
-                                    >
-                                        Chat with Owner
-                                    </Button>
-                                )}
+                                <img
+                                    width={"300px"}
+                                    height={"200px"}
+                                    style={{
+                                        objectFit: "contain",
+                                    }}
+                                    src={images[0]}
+                                    alt={name}
+                                />
                             </Box>
-                            <Typography
-                                variant="h6"
-                                sx={{ marginY: "26px" }}
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
+                            <Box
+                                component={Paper}
+                                sx={{
+                                    padding: "4%",
+                                    borderRadius: "0.5vw",
                                 }}
                             >
                                 <img
-                                    src="/assets/location.png"
-                                    width={"30px"}
-                                    style={{ marginRight: "15px" }}
+                                    width={"300px"}
+                                    height={"200px"}
+                                    src={map_image}
+                                    alt="map"
                                 />
-                                {city}
-                            </Typography>
-                            <Typography variant="h6" my={4}>
-                                <strong>Address:</strong> {address}
-                            </Typography>
-
-                            <Typography variant="h4" mb={3}>
-                                Amenities
-                            </Typography>
-                            <Grid container>
-                                {amenities.map((item, index) => (
-                                    <Paper
-                                        sx={{
-                                            marginX: 1,
-                                            paddingY: "0.65vw",
-                                            paddingX: "0.90vw",
-                                            height: "5vh",
-                                            borderRadius: "2.5vh",
-                                        }}
-                                        key={index}
-                                    >
-                                        {item}
-                                    </Paper>
-                                ))}
-                            </Grid>
+                            </Box>
                         </Box>
-                    </>
-                )}
-            </Box>
-        </>
+                    </Box>
+                    <Box mx={10}>
+                        <Typography variant="h1" my={4}>
+                            {name}
+                        </Typography>
+
+                        <Typography variant="h4" my={4}>
+                            Matic.{price}
+                        </Typography>
+                        <Box>
+                            {ownerId === auth.currentUser.uid && (
+                                <Typography>
+                                    You already own this property
+                                </Typography>
+                            )}
+
+                            {ownerId !== auth.currentUser.uid &&
+                                allowRequestPurchase && (
+                                    <Button
+                                        variant="contained"
+                                        onClick={makeDeposit}
+                                        disabled={loading}
+                                        sx={{ marginX: 4 }}
+                                    >
+                                        Request Purchase
+                                    </Button>
+                                )}
+
+                            <Button
+                                variant="outlined"
+                                component={Link}
+                                to={`/chat?chatter=${ownerId}`}
+                                sx={{ marginX: 4 }}
+                            >
+                                Chat with Owner
+                            </Button>
+                        </Box>
+                        <Typography
+                            variant="h6"
+                            sx={{ marginY: "26px" }}
+                            style={{ display: "flex", alignItems: "center" }}
+                        >
+                            <img
+                                src="/assets/location.png"
+                                width={"30px"}
+                                style={{ marginRight: "15px" }}
+                            />
+                            {city}
+                        </Typography>
+                        <Typography variant="h6" my={4}>
+                            <strong>Address:</strong> {address}
+                        </Typography>
+
+                        <Typography variant="h4" mb={3}>
+                            Amenities
+                        </Typography>
+                        <Grid container>
+                            {amenities.map((item, index) => (
+                                <Paper
+                                    sx={{
+                                        marginX: 1,
+                                        paddingY: "0.65vw",
+                                        paddingX: "0.90vw",
+                                        height: "5vh",
+                                        borderRadius: "2.5vh",
+                                    }}
+                                    key={index}
+                                >
+                                    {item}
+                                </Paper>
+                            ))}
+                        </Grid>
+                    </Box>
+                </>
+            )}
+        </Box>
     );
 };
 

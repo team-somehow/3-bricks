@@ -5,6 +5,7 @@ import Navbar from "../components/navbars/Navbar";
 import DashboardNavbar from "../components/navbars/DashboardNavbar";
 import AllChatsOptions from "../components/navbars/AllChatsOptions";
 import Chat from "./Chat";
+import { Box, Typography, Paper } from "@mui/material";
 
 function AllChats() {
     const [allChats, setAllChats] = useState([]);
@@ -70,7 +71,25 @@ function AllChats() {
 
   return (
     <>
-        <Navbar />
+        {/* <Navbar /> */}
+        {/* <div style={{position: "absolute", top: "3%", right: "40%", }}><h2>Messages</h2></div> */}
+        {/* <h2>Messages</h2> */}
+        <Box m={2} style={{marginTop: "2.5%"}}>
+            <Box
+                component={Paper}
+                sx={{
+                    width: "60vw",
+                    textAlign: "center",
+                    borderRadius: "0.5vw",
+                    paddingTop: "12px",
+                    backgroundColor: "white",
+                    marginLeft: "35vw",
+                    height: "9vh",
+                }}
+            >
+                <Typography variant="h5">Messages</Typography>
+            </Box>
+        </Box>
         <DashboardNavbar />
         <div style={{marginTop: "500px", opacity: 0.95}} onClick={updateChat}>
             {otherPerson.length>0 && <AllChatsOptions allChatter={otherPerson} chatter={chatter}/>}
