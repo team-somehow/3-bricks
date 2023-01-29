@@ -60,6 +60,7 @@ const Chat = (props) => {
 
     const handleSend = async () => {
         console.log(userId);
+        if (message.trim().length===0) return;
         await addDoc(collection(db, "messages"), {
             message: message,
             sender: auth.currentUser.uid,
@@ -85,11 +86,11 @@ const Chat = (props) => {
                 component={Paper}
                 elevation={12}
                 sx={{
-                    width: "55%",
+                    width: "58%",
                     margin: "5%",
                     height: "70vh",
                     position: "absolute",
-                    right: "-3%",
+                    right: "0%",
                     top: "10%",
                     boxShadow: "none",
                     background: "none"
@@ -110,13 +111,13 @@ const Chat = (props) => {
                                         }
                                     >
                                         <Paper
-                                            elevation={12}
+                                            elevation={3}
                                             sx={{
-                                                borderRadius: "28px",
+                                                borderRadius: "16px",
                                                 backgroundColor: `${
                                                     auth.currentUser.uid ===
                                                     item.sender
-                                                        ? "#2979ff"
+                                                        ? "#5f95f1e3"
                                                         : "white"
                                                 }`,
                                                 paddingX: "4%",
@@ -149,7 +150,7 @@ const Chat = (props) => {
                             flexDirection: "row",
                             gap: "2%",
                             marginTop: "8.5%",
-                            width: "56%",
+                            width: "58%",
                             position: "fixed",
                             backgroundColor: "#F6F7FF"
                         }}

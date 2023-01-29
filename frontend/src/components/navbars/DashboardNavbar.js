@@ -24,9 +24,10 @@ const DashboardNavbar = (props) => {
                 width: 350,
                 flexShrink: 0,
                 "& .MuiDrawer-paper": {
-                    width: 350,
+                    width: 280,
                     boxSizing: "border-box",
-                    background: "rgba(252, 254, 254, 0.43)",
+                    // background: "rgba(252, 254, 254, 0.43)",
+                    background: "rgba(255, 0, 0, 0.85)",
                     backdropFilter: "blur(25px)",
                 },
             }}
@@ -39,7 +40,7 @@ const DashboardNavbar = (props) => {
                     <div
                         style={{
                             paddingLeft: "18px",
-                            marginTop: "12px",
+                            marginTop: "-12px",
                             marginBottom: "28px",
                             cursor: "pointer",
                             display: "flex",
@@ -69,7 +70,7 @@ const DashboardNavbar = (props) => {
                         isActive={currentRoute === "/buyer/my"}
                     />
                     <NavLink
-                        text={"My Chats"}
+                        text={"Messages"}
                         icon={<ChatIcon />}
                         onClickNavigateTo="/chat"
                         isActive={currentRoute === "/chat"}

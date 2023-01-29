@@ -40,7 +40,7 @@ const pages = [
         linkTo: "/buyer/my",
     },
 ];
-const settings = ["My Chats", "Logout"];
+const settings = ["Messages", "Logout"];
 
 function Navbar() {
     const yScroll = useYScroll();
@@ -71,7 +71,7 @@ function Navbar() {
                     console.error(error);
                 });
         }
-        if (setting === "My Chats") {
+        if (setting === "Messages") {
             navigate("/chat");
         }
         setAnchorElUser(null);

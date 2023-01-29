@@ -25,11 +25,12 @@ const SellerDashboard = (props) => {
                 width: 350,
                 flexShrink: 0,
                 "& .MuiDrawer-paper": {
-                    width: 350,
+                    width: 290,
                     boxSizing: "border-box",
                     background: "rgba(252, 254, 254, 0.43)",
                     backdropFilter: "blur(25px)",
                 },
+                marginLeft: "-10px",
             }}
             variant="permanent"
             anchor="left"
@@ -40,7 +41,7 @@ const SellerDashboard = (props) => {
                     <div
                         style={{
                             paddingLeft: "18px",
-                            marginTop: "12px",
+                            marginTop: "-6px",
                             marginBottom: "28px",
                             cursor: "pointer",
                             display: "flex",
