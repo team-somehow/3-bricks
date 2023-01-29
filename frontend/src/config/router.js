@@ -15,6 +15,7 @@ import SellerDashboard from "../components/navbars/SellerDashboard";
 import AuthChecker from "../components/auth/AuthChecker";
 import Chat from "../screens/Chat";
 import AllChats from "../screens/AllChat";
+import ErrorPage from "../screens/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
 
         element: <Home />,
         exact: true,
-        errorElement: <div>Hello</div>,
+        errorElement: <ErrorPage />,
     },
     {
         path: "/buyer",
@@ -74,18 +75,16 @@ const router = createBrowserRouter([
     },
     {
         path: "/chat",
-		children:[
-			{
-				path:"/chat",
-				element: (
-					<AuthChecker>
-						<AllChats />
-					</AuthChecker>
-				),
-			}
-
-		]
-        
+        children: [
+            {
+                path: "/chat",
+                element: (
+                    <AuthChecker>
+                        <AllChats />
+                    </AuthChecker>
+                ),
+            },
+        ],
     },
     {
         path: "/admin",
