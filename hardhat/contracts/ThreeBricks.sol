@@ -57,15 +57,10 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
 
     // NFT owner can create listing
     function createPropertyListing(uint256 tokenId, uint256 _propertyPrice, uint256 _downPayment) public {
-        // console.log("property",_downPayment);
         require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can create listing");
         propertyPrice[tokenId] = _propertyPrice  * 10 **18;
         downPayment[tokenId] = _downPayment * 10 **18;
 
-        // console.log("propertyPrice[tokenId]");
-        // console.log(propertyPrice[tokenId]);
-        // console.log("downPayment[tokenId]");
-        // console.log(downPayment[tokenId]);
 
         address addr = msg.sender;
         address payable wallet = payable(addr);
@@ -75,12 +70,8 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     
     // buyer can make down payment
     function makeDownPayment(uint256 tokenId, address payable userPayableAddress) public payable {
-        // console.log( "fdsdsff");
-        // console.log( msg.value);
-        // console.log( downPayment[tokenId]);
         // require( msg.value >= downPayment[tokenId], "please deposit correct amount");
-        // console.log(msg.value);
-        // console.log(userPayableAddress);
+        
         // buyerAddressToDownPayment[msg.sender] = msg.value;
         buyerAddressToBuyerPayableAddress[msg.sender] = userPayableAddress;
 
@@ -91,29 +82,12 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         // Update the mapping with the new array of buyers
         tokenIdToBuyerAddress[tokenId] = currentBuyers;
 
-        // console.log("buyerAddressToDownPayment[msg.sender]");
-        // console.log(buyerAddressToDownPayment[msg.sender]);
-        // console.log("buyerAddressToBuyerPayableAddress[msg.sender]");
-        // console.log(buyerAddressToBuyerPayableAddress[msg.sender]);
     }
 
     function releaseDownPayment(uint256 tokenId, address _buyerAddress) public payable  {
-        address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
-        uint256 transferAmt = downPayment[tokenId];
-
-        // console.log("buyerPayableAddress");
-        // console.log(buyerPayableAddress);
-        // console.log("transferAmt");
-        // console.log(transferAmt);
-
-// console.log(address(this).balance);
-// console.log(address(buyerPayableAddress).balance);
-
-        payable(buyerPayableAddress).transfer(transferAmt);
-
-// console.log(address(this).balance);
-// console.log(address(buyerPayableAddress).balance);
-
+        // address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[_buyerAddress];
+        // uint256 transferAmt = downPayment[tokenId];
+        // payable(buyerPayableAddress).transfer(transferAmt);
     }
 
     // helper
@@ -122,7 +96,7 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
     }
 
      // start escrow
-    function NFTOwnerStartEscrow(uint256 tokenId, address chosenBuyer) public {
+    function NFTOwnerStartEscrow(uint256 tokenId, address chosenBuyer) public payable {
         require(_isApprovedOrOwner(msg.sender, tokenId), "only owner of NFT can start escrow process");
 
         // Transfer NFT from seller to this contract
@@ -132,9 +106,10 @@ contract ThreeBricks is ERC721, ERC721URIStorage, Ownable {
         address[] memory buyerAddresses = tokenIdToBuyerAddress[tokenId];
         for (uint256 i = 0; i < buyerAddresses.length; i++) {
             if (buyerAddresses[i] != chosenBuyer) {
-            // console.log("for loop");
-
-                releaseDownPayment(tokenId, address(buyerAddresses[i]));
+                // releaseDownPayment(tokenId, address(buyerAddresses[i]));
+                address payable buyerPayableAddress = buyerAddressToBuyerPayableAddress[address(buyerAddresses[i])];
+                uint256 transferAmt = downPayment[tokenId];
+                payable(buyerPayableAddress).transfer(transferAmt);
             }
         }
 
