@@ -88,11 +88,11 @@ export const contractAddress = "0xaaaaaaaaaaaa";
 
 ## 🚀 Future Scope <a name = "future_scope"></a>
 
--   Incorporating additional features such as dispute resolution mechanisms.
+-   Incorporating additional features such as **dispute resolution mechanisms**.
 
--   Expansion to cover other types of assets and properties across different countries.
+-   Expansion to cover **other types of assets** and properties across different countries.
 
--   Allowing for the creation of NFT-based investment products such as real estate investment trusts.
+-   Allowing for the creation of **NFT-based investment products** such as real estate investment trusts.
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
@@ -100,7 +100,7 @@ export const contractAddress = "0xaaaaaaaaaaaa";
     -   [Polygon](https://polygon.technology/)
     -   [Hardhat](https://hardhat.org/)
 -   **Backend**
-    -   [Firebase](hhttps://firebase.google.com/)
+    -   [Firebase](https://firebase.google.com/)
 -   **Frontend**
     -   [React](https://reactjs.org/)
 
@@ -110,9 +110,6 @@ export const contractAddress = "0xaaaaaaaaaaaa";
 -   [@Arya Nair](https://github.com/Arya-A-Nair)
 -   [@Vatsal](https://github.com/bevatsal1122)
 -   [@VinayKanse](https://github.com/VinayKanase)
-
-See also the list of [contributors](https://github.com/team-somehow/3-bricks/graphs/contributors)
-who participated in this project.
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
