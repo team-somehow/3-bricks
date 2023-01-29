@@ -108,17 +108,17 @@ const Home = (props) => {
                 />
             </Box>
             {/* <SpecialPointSection
-                    backgroundColor="#F3F3F3"
-                    heading="Property Selection Process"
-                    imageUrl={"/assets/property_selection.svg"}
-                    isOnlyImage
-                />
-                <SpecialPointSection
-                    backgroundColor="#F3F3F3"
-                    heading="Property Selling Process"
-                    imageUrl={"/assets/property_selling.svg"}
-                    isOnlyImage
-                /> */}
+                backgroundColor="#F3F3F3"
+                heading="Property Selection Process"
+                imageUrl={"/assets/property_selection.svg"}
+                isOnlyImage
+            />
+            <SpecialPointSection
+                backgroundColor="#F3F3F3"
+                heading="Property Selling Process"
+                imageUrl={"/assets/property_selling.svg"}
+                isOnlyImage
+            /> */}
             <SpecialPointSection
                 heading="Industrial Applications"
                 backgroundColor="#eef5f8"
@@ -131,7 +131,7 @@ const Home = (props) => {
                 reverse={true}
             />
             <SpecialPointSection
-                heading="Security Features"
+                heading="Security Features:"
                 backgroundColor="#fdf9fb"
                 pointsList={[
                     "Secure storage of property ownership records using the immutability and cryptographic features of the blockchain",
@@ -142,7 +142,7 @@ const Home = (props) => {
             />
             <SpecialPointSection
                 backgroundColor="#fefbef"
-                heading="Powered by Polygon"
+                heading="Powered by Polygon:"
                 pointsList={[
                     "Accurate identification and verification of property ownership",
                     "Reduced time and cost for property ownership transfer and related processes",
