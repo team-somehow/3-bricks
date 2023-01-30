@@ -1,19 +1,33 @@
-require("@nomicfoundation/hardhat-toolbox");
+// require("@nomicfoundation/hardhat-toolbox");
 
-const dotenv = require("dotenv");
-dotenv.config({ path: __dirname + "/.env" });
-const { ALCHEMY_URL, MATIC_PRIVATE_KEY } = process.env;
+// const dotenv = require("dotenv");
+// dotenv.config({ path: __dirname + "/.env" });
+// const { ALCHEMY_URL, MATIC_PRIVATE_KEY } = process.env;
+
+// /** @type import('hardhat/config').HardhatUserConfig */
+// module.exports = {
+//     solidity: "0.8.17",
+//     networks: {
+//         mumbai: {
+//             url: "https://polygon-mumbai.g.alchemy.com/v2/" + ALCHEMY_URL,
+//             accounts: [`0x${MATIC_PRIVATE_KEY}`],
+//         },
+//     },
+//     paths: {
+//         artifacts: "../frontend/src/artifacts",
+//     },
+// };
+
+require("@nomicfoundation/hardhat-toolbox");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
     solidity: "0.8.17",
     networks: {
-        mumbai: {
-            url: "https://polygon-mumbai.g.alchemy.com/v2/" + ALCHEMY_URL,
-            accounts: [`0x${MATIC_PRIVATE_KEY}`],
+        development: {
+            url: "http://localhost:8545",
+            gasPrice: 1,
+            gas:1
         },
-    },
-    paths: {
-        artifacts: "../frontend/src/artifacts",
     },
 };
