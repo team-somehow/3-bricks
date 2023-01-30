@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
     // We get the contract to deploy
-    const ThreeBricks = await hre.ethers.getContractFactory("ThreeBricks");
+    const ThreeBricks = await hre.ethers.getContractFactory("ThreeBricks1");
 
     const threeBricks = await ThreeBricks.deploy();
 
