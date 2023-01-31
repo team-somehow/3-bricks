@@ -113,11 +113,11 @@ describe("ThreeBricks", function () {
         let newPropertyPrice = await threeBricks.getPropertyPrice(tokenId);
         let newDownpayment = await threeBricks.getDownpayment(tokenId);
         expect(
-            propertyPrice === newPropertyPrice / 10 ** 18,
+            propertyPrice === ethers.utils.formatEther(newPropertyPrice),
             "Improper property price set"
         );
         expect(
-            downPayment === newDownpayment / 10 ** 18,
+            downPayment === ethers.utils.formatEther(newDownpayment),
             "Improper property price set"
         );
     });
@@ -275,10 +275,7 @@ describe("ThreeBricks", function () {
         expect(buyer1BalanceBefore == buyer1BalanceAfter);
         expect(buyer2BalanceBefore == buyer2BalanceAfter);
 
-        console.log(
-            (await threeBricks.getBalance()) / 10 ** 18,
-            10000000000000000000 / 10 ** 18
-        );
+        
     });
 
     it("Buyer1 completes payment, NFT transferred from smart contract to buyer, escrow process completed", async () => {
@@ -311,33 +308,48 @@ describe("ThreeBricks", function () {
                 ethers.utils.parseEther(propertyPrice.toString()),
                 ethers.utils.parseEther(downPayment.toString())
             );
+        let buyer1BalanceStart=ethers.utils.formatEther(await buyer1.getBalance());
         await threeBricks
             .connect(buyer1)
             .makeDownPayment(tokenId, buyer1.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
             });
-        console.log("buyer1 downpayment", (await buyer1.getBalance()) / 10 ** 18);
-        
+        let buyer1BalanceAfterDownPayment=ethers.utils.formatEther(await buyer1.getBalance());
+        expect(buyer1BalanceStart-buyer1BalanceAfterDownPayment=== ethers.utils.parseEther("10"),"Payment not done")
         await threeBricks
             .connect(buyer2)
             .makeDownPayment(tokenId, buyer2.address, {
                 value: ethers.utils.parseEther(downPayment.toString()),
             });
         
-            
+        let nftBalanceSellerBeforeEscrow = await threeBricks.balanceOf(seller.address);
+        expect(nftBalanceSellerBeforeEscrow===1,"NFT dissapear")
+        
         await threeBricks
             .connect(seller)
             .NFTOwnerStartEscrow(tokenId, buyer2.address);
-        console.log("buyer1 refunded", (await buyer1.getBalance()) / 10 ** 18);
+        
+        let buyer1Refunded=ethers.utils.formatEther(await buyer1.getBalance());
+        expect(buyer1Refunded-buyer1BalanceAfterDownPayment===ethers.utils.formatEther("10"),"Money not refunded to rejected buyer");
+        
+
+        let nftBalanceSellerStartEscrow = await threeBricks.balanceOf(seller.address);
+        expect(nftBalanceSellerStartEscrow===0,"NFT still held by Seller after escrow start")
 
         await threeBricks.connect(buyer2).completePaymentAndEsrow(tokenId, {
             value: ethers.utils.parseEther(
                 (propertyPrice - downPayment).toString()
             ),
         });
+        // console.log("seller", (await seller.getBalance()) / 10 ** 18);
+        // console.log("buyer1", (await buyer1.getBalance()) / 10 ** 18);
+        // console.log("buyer2", (await buyer2.getBalance()) / 10 ** 18);
 
-        console.log("seller", (await seller.getBalance()) / 10 ** 18);
-        console.log("buyer1", (await buyer1.getBalance()) / 10 ** 18);
-        console.log("buyer2", (await buyer2.getBalance()) / 10 ** 18);
+        let nftBalanceSellerAfter = await threeBricks.balanceOf(seller.address);
+        expect(nftBalanceSellerAfter===0,"NFT still held by Seller after complete payment")
+        let nftBalanceBuyer2After=await threeBricks.balanceOf(buyer2.address);
+        expect(nftBalanceBuyer2After===1,"NFT not transferred")
+        let nftBalanceBuyer1After=await threeBricks.balanceOf(buyer1.address);
+        expect(nftBalanceBuyer1After===1,"NFT not transferred")
     });
 });
