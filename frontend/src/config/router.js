@@ -16,94 +16,110 @@ import AuthChecker from "../components/auth/AuthChecker";
 import Chat from "../screens/Chat";
 import AllChats from "../screens/AllChat";
 import ErrorPage from "../screens/ErrorPage";
+import Wrapper from "../components/utils/Wrapper";
 
 const router = createBrowserRouter([
     {
         path: "/",
 
-        element: <Home />,
-        exact: true,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "/buyer",
-        element: (
-            <Box sx={{ display: "flex" }}>
-                <DashboardNavbar />
-                <Box>
-                    <Outlet />
-                </Box>
-            </Box>
-        ),
+        element: <Wrapper />,
         children: [
-            { path: "/buyer/browse", element: <Properties />, exact: true },
             {
-                path: "/buyer/browse/:propertyID",
-                element: <PropertyDetails />,
-                exact: true,
-            },
+                path: "/",
 
+                element: <Home />,
+                exact: true,
+                errorElement: <ErrorPage />,
+            },
             {
-                path: "/buyer/my",
+                path: "/buyer",
+                element: (
+                    <Box sx={{ display: "flex" }}>
+                        <DashboardNavbar />
+                        <Box>
+                            <Outlet />
+                        </Box>
+                    </Box>
+                ),
+                children: [
+                    {
+                        path: "/buyer/browse",
+                        element: <Properties />,
+                        exact: true,
+                    },
+                    {
+                        path: "/buyer/browse/:propertyID",
+                        element: <PropertyDetails />,
+                        exact: true,
+                    },
+
+                    {
+                        path: "/buyer/my",
+                        element: (
+                            <AuthChecker>
+                                <MyProperties />
+                            </AuthChecker>
+                        ),
+                        exact: true,
+                    },
+                ],
+            },
+            {
+                path: "/seller",
                 element: (
                     <AuthChecker>
-                        <MyProperties />
+                        <Box display="flex">
+                            <SellerDashboard />
+                            <Outlet />
+                        </Box>
                     </AuthChecker>
                 ),
-                exact: true,
+                children: [
+                    {
+                        path: "/seller/create",
+                        exact: true,
+                        element: <AddProperty />,
+                    },
+                    {
+                        path: "/seller/my",
+                        exact: true,
+                        element: <SellerPropertyDetails />,
+                    },
+                ],
             },
-        ],
-    },
-    {
-        path: "/seller",
-        element: (
-            <AuthChecker>
-                <Box display="flex">
-                    <SellerDashboard />
-                    <Outlet />
-                </Box>
-            </AuthChecker>
-        ),
-        children: [
-            { path: "/seller/create", exact: true, element: <AddProperty /> },
-            {
-                path: "/seller/my",
-                exact: true,
-                element: <SellerPropertyDetails />,
-            },
-        ],
-    },
-    {
-        path: "/chat",
-        children: [
             {
                 path: "/chat",
-                element: (
-                    <AuthChecker>
-                        <AllChats />
-                    </AuthChecker>
-                ),
+                children: [
+                    {
+                        path: "/chat",
+                        element: (
+                            <AuthChecker>
+                                <AllChats />
+                            </AuthChecker>
+                        ),
+                    },
+                ],
             },
-        ],
-    },
-    {
-        path: "/admin",
-        exact: true,
-        children: [
             {
                 path: "/admin",
-                element: (
-                    <AuthChecker>
-                        <Admin />
-                    </AuthChecker>
-                ),
+                exact: true,
+                children: [
+                    {
+                        path: "/admin",
+                        element: (
+                            <AuthChecker>
+                                <Admin />
+                            </AuthChecker>
+                        ),
+                    },
+                ],
+            },
+            {
+                path: "/login",
+                exact: true,
+                element: <Login />,
             },
         ],
-    },
-    {
-        path: "/login",
-        exact: true,
-        element: <Login />,
     },
 ]);
 

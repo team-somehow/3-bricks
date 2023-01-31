@@ -12,13 +12,18 @@ import ThreeBricks from "../../artifacts/contracts/ThreeBricks.sol/ThreeBricks.j
 import { pinFileToIPFS } from "../../utils/pinFileToIPFS";
 import CustomizedDialogs from "./DialogBox";
 
-const provider = new providers.Web3Provider(window.ethereum);
-// get the end user
-const signer = provider.getSigner();
-// get the smart contract
-const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
+// const provider = new providers.Web3Provider(window.ethereum);
+// // get the end user
+// const signer = provider.getSigner();
+// // get the smart contract
+// const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
 
 const RequestListItem = (props) => {
+    const provider = new providers.Web3Provider(window.ethereum);
+    // get the end user
+    const signer = provider.getSigner();
+    // get the smart contract
+    const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
     const [expand, setExpand] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const [item, _setItem] = useState(props);

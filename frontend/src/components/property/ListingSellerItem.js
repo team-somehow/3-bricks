@@ -19,13 +19,19 @@ import CustomizedDialogs from "../admin/DialogBox";
 import { db } from "../../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
-const provider = new providers.Web3Provider(window.ethereum);
-// get the end user
-const signer = provider.getSigner();
-// get the smart contract
-const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
+// const provider = new providers.Web3Provider(window.ethereum);
+// // get the end user
+// const signer = provider.getSigner();
+// // get the smart contract
+// const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
 
 const ListingSellerItem = (props) => {
+    const provider = new providers.Web3Provider(window.ethereum);
+    // get the end user
+    const signer = provider.getSigner();
+    // get the smart contract
+    const contract = new Contract(contractAddress, ThreeBricks.abi, signer);
+
     const [stepCount, setStepCount] = useState(0);
     const [open, setOpen] = useState(false);
     const [err, setErr] = useState(null);
